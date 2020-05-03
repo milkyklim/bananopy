@@ -1,6 +1,6 @@
 import requests
 
-API = 'API'
+API = 'https://api-beta.banano.cc'
 
 
 def post_get(API, payload):
@@ -176,18 +176,15 @@ def get_block_confirm(block_hash):
     return started
 
 
-def get_block_count(include_cemented="true"):
+def get_block_count():
     class BlockCount:
         count = 0
         unchecked = 0
-        cemented = 0
     count = BlockCount()
-    payload = {"action": "block_count",
-               "include_cemented": include_cemented}
+    payload = {"action": "block_count"}
     response = post_get(API, payload)
     count.count = response['count']
     count.unchecked = response['unchecked']
-    count.cemented = response['cemented']
     return count
 
 
