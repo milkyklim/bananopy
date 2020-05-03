@@ -1,6 +1,6 @@
 import requests
 
-API = 'http://45.32.180.42:7072'
+API = 'API'
 
 
 def post_get(API, payload):
@@ -23,7 +23,6 @@ def get_account_balance(account):
 
 
 def get_account_block_count(account):
-    block_count = 0
     payload = {"action": "account_block_count",
                "account": account}
     response = post_get(API, payload)
