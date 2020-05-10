@@ -11,6 +11,6 @@ To then access the data such as block count it can be called simply as `blockinf
 
 This library was written with node version 18 in mind. Some functions will work with later node versions however some might require extra parameters.
 
-Pull requests are welcome as due to the number of functions written, not all have been tested fully.
+Pull requests are welcome as due to the number of functions written (100+), not all have been tested fully.
 
 For more information on each function, please visit https://docs.nano.org/commands/rpc-protocol/
