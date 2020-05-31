@@ -2,6 +2,7 @@
 name = "bananopy"
 version = "0.1.0"
 description = "A python interface for interacting with Banano"
+license = "MIT"
 authors = [
     "milkyklim <10698619+milkyklim@users.noreply.github.com>",
     "Kirby1997 <jj@wilkinsons.me.uk>"
