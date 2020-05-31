@@ -1,6 +1,6 @@
 import requests
 
-API = 'https://api-beta.banano.cc'
+API = "https://api-beta.banano.cc"
 
 
 def post_get(API, payload):
@@ -13,44 +13,46 @@ def get_account_balance(account):
     class Balance:
         balance = 0
         pending = 0
+
     balance = Balance()
-    payload = {"action": "account_balance",
-               "account": account}
+    payload = {
+        "action": "account_balance",
+        "account": account,
+    }
     response = post_get(API, payload)
-    balance.balance = response['balance']
-    balance.pending = response['pending']
+    balance.balance = response["balance"]
+    balance.pending = response["pending"]
     return balance
 
 
 def get_account_block_count(account):
-    payload = {"action": "account_block_count",
-               "account": account}
+    payload = {"action": "account_block_count", "account": account}
     response = post_get(API, payload)
-    block_count = response['block_count']
+    block_count = response["block_count"]
     return block_count
 
 
 def get_account(pub_key):
-    payload = {"action": "account_get",
-               "account": pub_key}
+    payload = {"action": "account_get", "account": pub_key}
     response = post_get(API, payload)
-    account = response['account']
+    account = response["account"]
     return account
 
 
-def get_account_history(account, count, raw="false", head="", offset=0, reverse="false", account_filter=[]):
+def get_account_history(
+    account, count, raw="false", head="", offset=0, reverse="false", account_filter=[]
+):
     class History:
         account = ""
         history = []
         previous = ""
+
     history = History()
-    payload = {"action": "account_history",
-               "account": account,
-               "count": count}
+    payload = {"action": "account_history", "account": account, "count": count}
     response = post_get(API, payload)
-    history.account = response['account']
-    history.history = response['history']
-    history.history = response['previous']
+    history.account = response["account"]
+    history.history = response["history"]
+    history.history = response["previous"]
     return history
 
 
@@ -63,76 +65,83 @@ def get_account_info(account, representative="false", weight="false", pending="f
         modified_timestamp = 0
         block_count = 0
         account_version = 0
+
     info = Info()
-    payload = {"action": "account_info",
-               "account": account,
-               "representative": representative,
-               "weight": weight,
-               "pending": pending}
+    payload = {
+        "action": "account_info",
+        "account": account,
+        "representative": representative,
+        "weight": weight,
+        "pending": pending,
+    }
     response = post_get(API, payload)
-    info.frontier = response['frontier']
-    info.open_block = response['open_block']
-    info.representative_block = response['representative_block']
-    info.balance = response['balance']
-    info.modified_timestamp = response['modified_timestamp']
-    info.block_count = response['block_count']
-    info.account_version = response['account_version']
-    info.representative = response['representative']
-    info.weight = response['weight']
-    info.pending = response['pending']
+    info.frontier = response["frontier"]
+    info.open_block = response["open_block"]
+    info.representative_block = response["representative_block"]
+    info.balance = response["balance"]
+    info.modified_timestamp = response["modified_timestamp"]
+    info.block_count = response["block_count"]
+    info.account_version = response["account_version"]
+    info.representative = response["representative"]
+    info.weight = response["weight"]
+    info.pending = response["pending"]
     return info
 
 
 def get_account_key(account):
-    payload = {"action": "account_key",
-               "account": account}
+    payload = {"action": "account_key", "account": account}
     response = post_get(API, payload)
-    pub_key = response['key']
+    pub_key = response["key"]
     return pub_key
 
 
 def get_representative(account):
-    payload = {"action": "account_representative",
-               "account": account}
+    payload = {"action": "account_representative", "account": account}
     response = post_get(API, payload)
-    representative = response['representative']
+    representative = response["representative"]
     return representative
 
 
 def get_weight(account):
-    payload = {"action": "account_weight",
-               "account": account}
+    payload = {"action": "account_weight", "account": account}
     response = post_get(API, payload)
-    weight = response['weight']
+    weight = response["weight"]
     return weight
 
 
 def get_accounts_balances(accounts):
-    payload = {"action": "accounts_balances",
-               "account": accounts}
+    payload = {"action": "accounts_balances", "account": accounts}
     response = post_get(API, payload)
-    balances = response['balances']
+    balances = response["balances"]
     return balances
 
 
 def get_accounts_frontiers(accounts):
-    payload = {"action": "accounts_frontiers",
-               "account": accounts}
+    payload = {"action": "accounts_frontiers", "account": accounts}
     response = post_get(API, payload)
-    frontiers = response['frontiers']
+    frontiers = response["frontiers"]
     return frontiers
 
 
-def get_accounts_pending(accounts, threshold=0, source="false", include_active="false", sorting="false", include_only_confirmed="false"):
-    payload = {"action": "accounts_pending",
-               "account": accounts,
-               "threshold": threshold,
-               "source": source,
-               "include_active": include_active,
-               "sorting": sorting,
-               "include_only_confirmed": include_only_confirmed}
+def get_accounts_pending(
+    accounts,
+    threshold=0,
+    source="false",
+    include_active="false",
+    sorting="false",
+    include_only_confirmed="false",
+):
+    payload = {
+        "action": "accounts_pending",
+        "account": accounts,
+        "threshold": threshold,
+        "source": source,
+        "include_active": include_active,
+        "sorting": sorting,
+        "include_only_confirmed": include_only_confirmed,
+    }
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
@@ -142,37 +151,35 @@ def get_active_difficulty(include_trend="false"):
         network_current = ""
         multiplier = ""
         difficulty_trend = []
+
     difficulty = Difficulty()
-    payload = {"action": "active_difficulty",
-               "include_trend": include_trend}
+    payload = {"action": "active_difficulty", "include_trend": include_trend}
     response = post_get(API, payload)
-    difficulty.network_minimum = response['network_minimum']
-    difficulty.network_current = response['network_current']
-    difficulty.multiplier = response['multiplier']
-    difficulty.difficulty_trend = response['difficulty_trend']
+    difficulty.network_minimum = response["network_minimum"]
+    difficulty.network_current = response["network_current"]
+    difficulty.multiplier = response["multiplier"]
+    difficulty.difficulty_trend = response["difficulty_trend"]
     return difficulty
 
 
 def get_available_supply():
     payload = {"action": "available_supply"}
     response = post_get(API, payload)
-    supply = response['available']
+    supply = response["available"]
     return supply
 
 
 def get_block_account(block_hash):
-    payload = {"action": "block_account",
-               "hash": block_hash}
+    payload = {"action": "block_account", "hash": block_hash}
     response = post_get(API, payload)
-    account = response['account']
+    account = response["account"]
     return account
 
 
 def get_block_confirm(block_hash):
-    payload = {"action": "block_confirm",
-               "hash": block_hash}
+    payload = {"action": "block_confirm", "hash": block_hash}
     response = post_get(API, payload)
-    started = response['started']
+    started = response["started"]
     return started
 
 
@@ -180,11 +187,12 @@ def get_block_count():
     class BlockCount:
         count = 0
         unchecked = 0
+
     count = BlockCount()
     payload = {"action": "block_count"}
     response = post_get(API, payload)
-    count.count = response['count']
-    count.unchecked = response['unchecked']
+    count.count = response["count"]
+    count.unchecked = response["unchecked"]
     return count
 
 
@@ -197,16 +205,17 @@ def get_block_count_type():
         state_v0 = 0
         state_v1 = 0
         state = 0
+
     count = BlockCount()
     payload = {"action": "block_count_type"}
     response = post_get(API, payload)
-    count.send = response['send']
-    count.receive = response['receive']
-    count.open = response['open']
-    count.change = response['change']
-    count.state_v0 = response['state_v0']
-    count.state_v1 = response['state_v1']
-    count.state = response['state']
+    count.send = response["send"]
+    count.receive = response["receive"]
+    count.open = response["open"]
+    count.change = response["change"]
+    count.state_v0 = response["state_v0"]
+    count.state_v1 = response["state_v1"]
+    count.state = response["state"]
     return count
 
 
@@ -215,37 +224,52 @@ def create_block(block_type, balance, key, representative, link, previous):
         block_hash = ""
         difficulty = ""
         block = []
+
     block = Block()
-    payload = {"action": "block_create",
-               "type": block_type,
-               "balance": balance,
-               "key": key,
-               "representative": representative,
-               "link": link,
-               "previous": previous}
+    payload = {
+        "action": "block_create",
+        "type": block_type,
+        "balance": balance,
+        "key": key,
+        "representative": representative,
+        "link": link,
+        "previous": previous,
+    }
     response = post_get(API, payload)
-    block.block_hash = response['hash']
-    block.difficulty = response['difficulty']
-    block.block = response['block']
+    block.block_hash = response["hash"]
+    block.difficulty = response["difficulty"]
+    block.block = response["block"]
     return block
 
 
-def get_hash(block_type, account, previous, representative, balance, link, link_as_account, signature, work):
+def get_hash(
+    block_type,
+    account,
+    previous,
+    representative,
+    balance,
+    link,
+    link_as_account,
+    signature,
+    work,
+):
 
-    payload = {"action": "block_hash",
-               "block": {
-                   "type": block_type,
-                   "account": account,
-                   "previous": previous,
-                   "representative": representative,
-                   "balance": balance,
-                   "link": link,
-                   "link_as_account": link_as_account,
-                   "signature": signature,
-                   "work": work}
-               }
+    payload = {
+        "action": "block_hash",
+        "block": {
+            "type": block_type,
+            "account": account,
+            "previous": previous,
+            "representative": representative,
+            "balance": balance,
+            "link": link,
+            "link_as_account": link_as_account,
+            "signature": signature,
+            "work": work,
+        },
+    }
     response = post_get(API, payload)
-    block_hash = response['hash']
+    block_hash = response["hash"]
     return block_hash
 
 
@@ -259,45 +283,46 @@ def get_block_info(block_hash):
         confirmed = ""
         contents = []
         subtype = ""
+
     block = Block()
-    payload = {"action": "block_info",
-               "hash": block_hash}
+    payload = {"action": "block_info", "hash": block_hash}
     response = post_get(API, payload)
-    block.block_account = response['block_account']
-    block.amount = response['amount']
-    block.balance = response['balance']
-    block.height = response['height']
-    block.local_timestamp = response['local_timestamp']
-    block.confirmed = response['confirmed']
-    block.contents = response['contents']
-    block.subtype = response['subtype']
+    block.block_account = response["block_account"]
+    block.amount = response["amount"]
+    block.balance = response["balance"]
+    block.height = response["height"]
+    block.local_timestamp = response["local_timestamp"]
+    block.confirmed = response["confirmed"]
+    block.contents = response["contents"]
+    block.subtype = response["subtype"]
     return block
 
 
 def get_blocks(hashes):
-    payload = {"action": "blocks",
-               "hashes": hashes}
+    payload = {"action": "blocks", "hashes": hashes}
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
-def get_blocks_info(hashes, include_not_found="false", pending="false", source="false", balance="false"):
-    payload = {"action": "blocks_info",
-               "include_not_found": include_not_found,
-               "hashes": hashes,
-               "pending": pending,
-               "source": source,
-               "balance": balance}
+def get_blocks_info(
+    hashes, include_not_found="false", pending="false", source="false", balance="false"
+):
+    payload = {
+        "action": "blocks_info",
+        "include_not_found": include_not_found,
+        "hashes": hashes,
+        "pending": pending,
+        "source": source,
+        "balance": balance,
+    }
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
 def bootstrap(address, port):
-    payload = {"action": "bootstrap",
-               "address": address,
-               "port": port}
+    payload = {"action": "bootstrap", "address": address, "port": port}
     response = post_get(API, payload)
     success = response["success"]
     return success
@@ -311,8 +336,7 @@ def bootstrap_any():
 
 
 def bootstrap_lazy(block_hash):
-    payload = {"action": "bootstrap_any",
-               "hash": block_hash}
+    payload = {"action": "bootstrap_any", "hash": block_hash}
     response = post_get(API, payload)
     started = response["started"]
     return started
@@ -341,6 +365,7 @@ def get_bootstrap_status():
         lazy_keys = 0
         lazy_key_1 = ""
         duration = 0
+
     status = Status()
     payload = {"action": "bootstrap_status"}
     response = post_get(API, payload)
@@ -369,9 +394,7 @@ def get_bootstrap_status():
 
 
 def get_chain(block_hash, count=-1):
-    payload = {"action": "chain",
-               "block": block_hash,
-               "count": count}
+    payload = {"action": "chain", "block": block_hash, "count": count}
     response = post_get(API, payload)
     blocks = response["blocks"]
     return blocks
@@ -382,9 +405,9 @@ def get_confirmation_active(announcements=0):
         confirmations = []
         unconfirmed = 0
         confirmed = 0
+
     confirmations = Confirmations()
-    payload = {"action": "confirmation_active",
-               "announcements": announcements}
+    payload = {"action": "confirmation_active", "announcements": announcements}
     response = post_get(API, payload)
     confirmations.confirmations = response["confirmations"]
     confirmations.unconfirmed = response["unconfirmed"]
@@ -404,6 +427,7 @@ def get_confirmation_history():
         count = 0
         average = 0
         confirmations = []
+
     confirmations = Confirmations()
     payload = {"action": "confirmation_history"}
     response = post_get(API, payload)
@@ -420,6 +444,7 @@ def get_confirmation_info():
         last_winner = ""
         total_tally = ""
         blocks = []
+
     info = Info()
     payload = {"action": "confirmation_info"}
     response = post_get(API, payload)
@@ -440,6 +465,7 @@ def get_confirmation_quorum():
         peers_stake_total = 0
         peers_stake_required = 0
         peers = []
+
     quorum = Quorum()
     payload = {"action": "confirmation_history"}
     response = post_get(API, payload)
@@ -461,16 +487,14 @@ def get_database_txn_tracker():
 
 
 def get_delegators(account):
-    payload = {"action": "get_delegators",
-               "account": account}
+    payload = {"action": "get_delegators", "account": account}
     response = post_get(API, payload)
     delegators = response["delegators"]
     return delegators
 
 
 def get_delegators_count(account):
-    payload = {"action": "get_delegators_count",
-               "account": account}
+    payload = {"action": "get_delegators_count", "account": account}
     response = post_get(API, payload)
     count = response["count"]
     return count
@@ -481,10 +505,9 @@ def get_deteministic_key(seed, index=0):
         private = ""
         public = ""
         account = ""
+
     keys = Keys()
-    payload = {"action": "deterministic_key",
-               "seed": seed,
-               "index": index}
+    payload = {"action": "deterministic_key", "seed": seed, "index": index}
     response = post_get(API, payload)
     keys.private = response["private"]
     keys.public = response["public"]
@@ -500,20 +523,16 @@ def get_frontiers_count():
 
 
 def get_frontiers(account, count=-1):
-    payload = {"action": "get_frontiers",
-               "account": account,
-               "count": count}
+    payload = {"action": "get_frontiers", "account": account, "count": count}
     response = post_get(API, payload)
     frontiers = response["frontiers"]
     return frontiers
 
 
 def keepalive(address, port):
-    payload = {"action": "keepalive",
-               "address": address,
-               "port": port}
+    payload = {"action": "keepalive", "address": address, "port": port}
     response = post_get(API, payload)
-    started = response['started']
+    started = response["started"]
     return started
 
 
@@ -522,6 +541,7 @@ def get_key_create():
         private = ""
         public = ""
         account = ""
+
     keys = Keys()
     payload = {"action": "key_create"}
     response = post_get(API, payload)
@@ -536,9 +556,9 @@ def get_key_expand(private_key):
         private = ""
         public = ""
         account = ""
+
     keys = Keys()
-    payload = {"action": "key_expand",
-               "key": private_key}
+    payload = {"action": "key_expand", "key": private_key}
     response = post_get(API, payload)
     keys.private = response["private"]
     keys.public = response["public"]
@@ -546,18 +566,27 @@ def get_key_expand(private_key):
     return keys
 
 
-def get_ledger(account, count=-1, representative="false", weight="false", pending="false", modified_since=0, sorting="false"):
-    payload = {"action": "ledger",
-               "account": account,
-               "count": count,
-               "representative": representative,
-               "weight": weight,
-               "pending": pending,
-               "modified_since": modified_since,
-               "sorting": sorting
-               }
+def get_ledger(
+    account,
+    count=-1,
+    representative="false",
+    weight="false",
+    pending="false",
+    modified_since=0,
+    sorting="false",
+):
+    payload = {
+        "action": "ledger",
+        "account": account,
+        "count": count,
+        "representative": representative,
+        "weight": weight,
+        "pending": pending,
+        "modified_since": modified_since,
+        "sorting": sorting,
+    }
     response = post_get(API, payload)
-    accounts = response['accounts']
+    accounts = response["accounts"]
     return accounts
 
 
@@ -567,6 +596,7 @@ def get_node_id():
         public = ""
         as_account = ""
         node_id = ""
+
     keys = Keys()
     payload = {"action": "node_id"}
     response = post_get(API, payload)
@@ -585,88 +615,124 @@ def node_id_delete():
 
 
 def get_peers(peer_details="false"):
-    payload = {"action": "peers",
-               "peer_details": peer_details}
+    payload = {"action": "peers", "peer_details": peer_details}
     response = post_get(API, payload)
     peers = response["peers"]
     return peers
 
 
-def get_pending(count=-1, threshold=0, source="false", include_active="false", min_version="false", sorting="false", include_only_confirmed="false"):
-    payload = {"action": "pending",
-               "count": count,
-               "threshold": threshold,
-               "source": source,
-               "include_active": include_active,
-               "min_version": min_version,
-               "sorting": sorting,
-               "include_only_confirmed": include_only_confirmed}
+def get_pending(
+    count=-1,
+    threshold=0,
+    source="false",
+    include_active="false",
+    min_version="false",
+    sorting="false",
+    include_only_confirmed="false",
+):
+    payload = {
+        "action": "pending",
+        "count": count,
+        "threshold": threshold,
+        "source": source,
+        "include_active": include_active,
+        "min_version": min_version,
+        "sorting": sorting,
+        "include_only_confirmed": include_only_confirmed,
+    }
     response = post_get(API, payload)
     blocks = response["blocks"]
     return blocks
 
 
 def pending_exists(block_hash, include_active="false", include_only_confirmed="false"):
-    payload = {"action": "pending_exists",
-               "hash": block_hash,
-               "include_active": include_active,
-               "include_only_confirmed": include_only_confirmed}
+    payload = {
+        "action": "pending_exists",
+        "hash": block_hash,
+        "include_active": include_active,
+        "include_only_confirmed": include_only_confirmed,
+    }
     response = post_get(API, payload)
     exists = response["exists"]
     return exists
 
 
-def process(block_type, account, previous, representative, balance, link, link_as_account, signature, work, subtype="", force="false"):
-    payload = {"action": "process",
-               "subtype": subtype,
-               "block": {
-                   "type": block_type,
-                   "account": account,
-                   "previous": previous,
-                   "representative": representative,
-                   "balance": balance,
-                   "link": link,
-                   "link_as_account": link_as_account,
-                   "signature": signature,
-                   "work": work},
-               "force": force
-               }
+def process(
+    block_type,
+    account,
+    previous,
+    representative,
+    balance,
+    link,
+    link_as_account,
+    signature,
+    work,
+    subtype="",
+    force="false",
+):
+    payload = {
+        "action": "process",
+        "subtype": subtype,
+        "block": {
+            "type": block_type,
+            "account": account,
+            "previous": previous,
+            "representative": representative,
+            "balance": balance,
+            "link": link,
+            "link_as_account": link_as_account,
+            "signature": signature,
+            "work": work,
+        },
+        "force": force,
+    }
     response = post_get(API, payload)
     exists = response["exists"]
     return exists
 
 
 def get_representatives(count=-1, sorting="false"):
-    payload = {"action": "representatives",
-               "count": count,
-               "sorting": sorting}
+    payload = {"action": "representatives", "count": count, "sorting": sorting}
     response = post_get(API, payload)
     representatives = response["representatives"]
     return representatives
 
 
 def get_representatives_online(weight="false"):
-    payload = {"action": "representatives_online",
-               "weight": weight}
+    payload = {"action": "representatives_online", "weight": weight}
     response = post_get(API, payload)
     representatives = response["representatives"]
     return representatives
 
 
 def republish(block_hash, sources="false", destinations="false"):
-    payload = {"action": "republish",
-               "hash": block_hash,
-               "sources": sources,
-               "destinations": destinations}
+    payload = {
+        "action": "republish",
+        "hash": block_hash,
+        "sources": sources,
+        "destinations": destinations,
+    }
     response = post_get(API, payload)
     blocks = response["blocks"]
     return blocks
 
 
-def sign_key(private_key, block_type, account, previous_block, representative, balance, link, link_as_account, signature, work):
+def sign_key(
+    private_key,
+    block_type,
+    account,
+    previous_block,
+    representative,
+    balance,
+    link,
+    link_as_account,
+    signature,
+    work,
+):
     class Signed:
         signature = ""
         block = []
+
     signed = Signed()
     payload = {
         "action": "sign",
@@ -680,7 +746,8 @@ def sign_key(private_key, block_type, account, previous_block, representative, b
             "link": link,
             "link_as_account": link_as_account,
             "signature": signature,
-            "work": work}
+            "work": work,
+        },
     }
     response = post_get(API, payload)
     signed.signature = response["signature"]
@@ -688,10 +755,22 @@ def sign_key(private_key, block_type, account, previous_block, representative, b
     return signed
 
 
-def sign_wallet(wallet, block_type, account, previous_block, representative, balance, link, link_as_account, signature, work):
+def sign_wallet(
+    wallet,
+    block_type,
+    account,
+    previous_block,
+    representative,
+    balance,
+    link,
+    link_as_account,
+    signature,
+    work,
+):
     class Signed:
         signature = ""
         block = []
+
     signed = Signed()
     payload = {
         "action": "sign",
@@ -706,7 +785,8 @@ def sign_wallet(wallet, block_type, account, previous_block, representative, bal
             "link": link,
             "link_as_account": link_as_account,
             "signature": signature,
-            "work": work}
+            "work": work,
+        },
     }
     response = post_get(API, payload)
     signed.signature = response["signature"]
@@ -716,8 +796,7 @@ def sign_wallet(wallet, block_type, account, previous_block, representative, bal
 
 # types are "samples", "objects"
 def get_stats(stat_type):
-    payload = {"action": "stats",
-               "type": stat_type}
+    payload = {"action": "stats", "type": stat_type}
     response = post_get(API, payload)
     stats = response
     return stats
@@ -726,14 +805,14 @@ def get_stats(stat_type):
 def stats_clear():
     payload = {"action": "stats_clear"}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
 def stop_node():
     payload = {"action": "stop"}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
@@ -743,17 +822,17 @@ def get_successors(block_hash, count=-1, offset=0, reverse="false"):
         "block": block_hash,
         "count": count,
         "offset": offset,
-        "reverse": reverse}
+        "reverse": reverse,
+    }
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
 def validate_account_number(account):
-    payload = {"action": "validate_account_number",
-               "account": account}
+    payload = {"action": "validate_account_number", "account": account}
     response = post_get(API, payload)
-    valid = response['valid']
+    valid = response["valid"]
     return valid
 
 
@@ -767,32 +846,32 @@ def get_version():
         network = ""
         network_identifier = ""
         build_info = ""
+
     version = Version()
     payload = {"action": "version"}
     response = post_get(API, payload)
-    version.rpc_version = response['rpc_version']
-    version.store_version = response['store_version']
-    version.protocol_version = response['protocol_version']
-    version.node_vendor = response['node_vendor']
-    version.store_vendor = response['store_vendor']
-    version.network = response['network']
-    version.network_identifier = response['network_identifier']
-    version.build_info = response['build_info']
+    version.rpc_version = response["rpc_version"]
+    version.store_version = response["store_version"]
+    version.protocol_version = response["protocol_version"]
+    version.node_vendor = response["node_vendor"]
+    version.store_vendor = response["store_vendor"]
+    version.network = response["network"]
+    version.network_identifier = response["network_identifier"]
+    version.build_info = response["build_info"]
     return version
 
 
 def get_all_unchecked(count=-1):
-    payload = {"action": "unchecked",
-               "count": count}
+    payload = {"action": "unchecked", "count": count}
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
 def unchecked_clear():
     payload = {"action": "unchecked_clear"}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
@@ -800,44 +879,43 @@ def get_unchecked(block_hash):
     class Block:
         modified_timestamp = 0
         contents = []
+
     block = Block()
-    payload = {"action": "unchecked_get",
-               "hash": block_hash}
+    payload = {"action": "unchecked_get", "hash": block_hash}
     response = post_get(API, payload)
-    block.modified_timestamp = response['modified_timestamp']
+    block.modified_timestamp = response["modified_timestamp"]
     block.contents = response["contents"]
     return block
 
 
 def get_unchecked_keys(key, count=-1):
-    payload = {"action": "unchecked_keys",
-               "key": key,
-               "count": count}
+    payload = {"action": "unchecked_keys", "key": key, "count": count}
     response = post_get(API, payload)
-    unchecked = response['unchecked']
+    unchecked = response["unchecked"]
     return unchecked
 
 
 def get_unopened(account, count=-1, threshold=0):
-    payload = {"action": "unopened",
-               "account": account,
-               "count": count,
-               "threshold": threshold}
+    payload = {
+        "action": "unopened",
+        "account": account,
+        "count": count,
+        "threshold": threshold,
+    }
     response = post_get(API, payload)
-    accounts = response['accounts']
+    accounts = response["accounts"]
     return accounts
 
 
 def get_uptime():
     payload = {"action": "uptime"}
     response = post_get(API, payload)
-    seconds = response['seconds']
+    seconds = response["seconds"]
     return seconds
 
 
 def work_cancel(block_hash):
-    payload = {"action": "work_cancel",
-               "hash": block_hash}
+    payload = {"action": "work_cancel", "hash": block_hash}
     response = post_get(API, payload)
 
 
@@ -847,39 +925,35 @@ def work_generate(block_hash, use_peers="false"):
         difficulty = ""
         multiplier = ""
         block_hash = ""
+
     work = Work()
-    payload = {"action": "work_generate",
-               "hash": block_hash,
-               "use_peers": use_peers}
+    payload = {"action": "work_generate", "hash": block_hash, "use_peers": use_peers}
     response = post_get(API, payload)
-    work.work = response['work']
-    work.difficulty = response['difficulty']
-    work.multiplier = response['multiplier']
-    work.block_hash = response['hash']
+    work.work = response["work"]
+    work.difficulty = response["difficulty"]
+    work.multiplier = response["multiplier"]
+    work.block_hash = response["hash"]
     return work
 
 
 def work_peer_add(address, port):
-    payload = {
-        "action": "work_peer_add",
-        "address": address,
-        "port": port}
+    payload = {"action": "work_peer_add", "address": address, "port": port}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
 def get_work_peers():
     payload = {"action": "work_peers"}
     response = post_get(API, payload)
-    work_peers = response['work_peers']
+    work_peers = response["work_peers"]
     return work_peers
 
 
 def work_peers_clear():
     payload = {"action": "work_peers_clear"}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
@@ -888,47 +962,48 @@ def account_create(wallet, index=0, work="true"):
         "action": "account_create",
         "wallet": wallet,
         "index": index,
-        "work": work}
+        "work": work,
+    }
     response = post_get(API, payload)
-    account = response['account']
+    account = response["account"]
     return account
 
 
 def get_account_list(wallet):
-    payload = {
-        "action": "account_list",
-        "wallet": wallet}
+    payload = {"action": "account_list", "wallet": wallet}
     response = post_get(API, payload)
-    accounts = response['accounts']
+    accounts = response["accounts"]
     return accounts
 
 
 def account_move(wallet, source, accounts):
-    payload = {"action": "account_move",
-               "wallet": wallet,
-               "source": source,
-               "accounts": accounts}
+    payload = {
+        "action": "account_move",
+        "wallet": wallet,
+        "source": source,
+        "accounts": accounts,
+    }
     response = post_get(API, payload)
-    moved = response['moved']
+    moved = response["moved"]
     return moved
 
 
 def account_remove(wallet, account):
-    payload = {"action": "account_remove",
-               "wallet": wallet,
-               "account": account}
+    payload = {"action": "account_remove", "wallet": wallet, "account": account}
     response = post_get(API, payload)
-    removed = response['removed']
+    removed = response["removed"]
     return removed
 
 
 def set_account_representative(wallet, account, representative):
-    payload = {"action": "account_representative_set",
-               "wallet": wallet,
-               "account": account,
-               "representative": representative}
+    payload = {
+        "action": "account_representative_set",
+        "wallet": wallet,
+        "account": account,
+        "representative": representative,
+    }
     response = post_get(API, payload)
-    block = response['block']
+    block = response["block"]
     return block
 
 
@@ -937,27 +1012,24 @@ def accounts_create(wallet, count, work="true"):
         "action": "accounts_create",
         "wallet": wallet,
         "count": count,
-        "work": work}
+        "work": work,
+    }
     response = post_get(API, payload)
-    accounts = response['accounts']
+    accounts = response["accounts"]
     return accounts
 
 
 def set_password(wallet, password):
-    payload = {"action": "password_change",
-               "wallet": wallet,
-               "password": password}
+    payload = {"action": "password_change", "wallet": wallet, "password": password}
     response = post_get(API, payload)
-    changed = response['changed']
+    changed = response["changed"]
     return changed
 
 
 def password_enter(wallet, password):
-    payload = {"action": "password_enter",
-               "wallet": wallet,
-               "password": password}
+    payload = {"action": "password_enter", "wallet": wallet, "password": password}
     response = post_get(API, payload)
-    valid = response['valid']
+    valid = response["valid"]
     return valid
 
 
@@ -966,39 +1038,38 @@ def receive(wallet, account, block):
         "action": "receive",
         "wallet": wallet,
         "account": account,
-        "block": block}
+        "block": block,
+    }
     response = post_get(API, payload)
-    block = response['block']
+    block = response["block"]
     return block
 
 
 def get_receive_minimum():
     payload = {"action": "receive_minimum"}
     response = post_get(API, payload)
-    amount = response['amount']
+    amount = response["amount"]
     return amount
 
 
 def set_receive_minimum(amount):
-    payload = {"action": "receive_minimum_set",
-               "amount": amount}
+    payload = {"action": "receive_minimum_set", "amount": amount}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
 def search_pending(wallet):
-    payload = {"action": "search_pending",
-               "wallet": wallet}
+    payload = {"action": "search_pending", "wallet": wallet}
     response = post_get(API, payload)
-    started = response['started']
+    started = response["started"]
     return started
 
 
 def search_pending_all():
     payload = {"action": "search_pending_all"}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
@@ -1008,39 +1079,31 @@ def send(wallet, source, destination, amount):
         "wallet": wallet,
         "source": source,
         "destination": destination,
-        "amount": amount}
+        "amount": amount,
+    }
     response = post_get(API, payload)
-    block = response['block']
+    block = response["block"]
     return block
 
 
 def wallet_add(wallet, key, work="false"):
-    payload = {
-        "action": "wallet_add",
-        "wallet": wallet,
-        "key": key,
-        "work": work}
+    payload = {"action": "wallet_add", "wallet": wallet, "key": key, "work": work}
     response = post_get(API, payload)
-    account = response['account']
+    account = response["account"]
     return account
 
 
 def wallet_add_watch(wallet, accounts):
-    payload = {
-        "action": "wallet_add_watch",
-        "wallet": wallet,
-        "accounts": accounts}
+    payload = {"action": "wallet_add_watch", "wallet": wallet, "accounts": accounts}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
 def wallet_balances(wallet):
-    payload = {
-        "action": "wallet_balances",
-        "wallet": wallet}
+    payload = {"action": "wallet_balances", "wallet": wallet}
     response = post_get(API, payload)
-    balances = response['balances']
+    balances = response["balances"]
     return balances
 
 
@@ -1049,69 +1112,55 @@ def wallet_change_seed(wallet, seed):
         success = ""
         last_restored_account = ""
         restored_count = 0
+
     success = Success()
-    payload = {
-        "action": "wallet_change_seed",
-        "wallet": wallet,
-        "seed": seed}
+    payload = {"action": "wallet_change_seed", "wallet": wallet, "seed": seed}
     response = post_get(API, payload)
-    success.success = response['success']
-    success.success = response['last_restored_account']
-    success.success = response['restored_count']
+    success.success = response["success"]
+    success.success = response["last_restored_account"]
+    success.success = response["restored_count"]
     return success
 
 
 def wallet_contains(wallet, account):
-    payload = {
-        "action": "wallet_contains",
-        "wallet": wallet,
-        "account": account}
+    payload = {"action": "wallet_contains", "wallet": wallet, "account": account}
     response = post_get(API, payload)
-    exists = response['exists']
+    exists = response["exists"]
     return exists
 
 
 def wallet_create():
-    payload = {
-        "action": "wallet_create"}
+    payload = {"action": "wallet_create"}
     response = post_get(API, payload)
-    wallet = response['wallet']
+    wallet = response["wallet"]
     return wallet
 
 
 def seed_wallet_create(seed):
-    payload = {
-        "action": "wallet_create",
-        "seed": seed}
+    payload = {"action": "wallet_create", "seed": seed}
     response = post_get(API, payload)
-    wallet = response['wallet']
+    wallet = response["wallet"]
     return wallet
 
 
 def wallet_destroy(wallet):
-    payload = {
-        "action": "wallet_destroy",
-        "wallet": wallet}
+    payload = {"action": "wallet_destroy", "wallet": wallet}
     response = post_get(API, payload)
-    destroyed = response['destroyed']
+    destroyed = response["destroyed"]
     return destroyed
 
 
 def wallet_export(wallet):
-    payload = {
-        "action": "wallet_export",
-        "wallet": wallet}
+    payload = {"action": "wallet_export", "wallet": wallet}
     response = post_get(API, payload)
-    json = response['json']
+    json = response["json"]
     return json
 
 
 def get_wallet_frontiers(wallet):
-    payload = {
-        "action": "wallet_frontiers",
-        "wallet": wallet}
+    payload = {"action": "wallet_frontiers", "wallet": wallet}
     response = post_get(API, payload)
-    frontiers = response['frontiers']
+    frontiers = response["frontiers"]
     return frontiers
 
 
@@ -1119,9 +1168,10 @@ def get_wallet_history(wallet, modified_since=0):
     payload = {
         "action": "wallet_history",
         "wallet": wallet,
-        "modified_since": modified_since}
+        "modified_since": modified_since,
+    }
     response = post_get(API, payload)
-    history = response['history']
+    history = response["history"]
     return history
 
 
@@ -1133,52 +1183,58 @@ def wallet_info(wallet):
         adhoc_count = 0
         deterministic_count = 0
         deterministic_index = 0
+
     info = Info()
-    payload = {
-        "action": "wallet_info",
-        "wallet": wallet}
+    payload = {"action": "wallet_info", "wallet": wallet}
     response = post_get(API, payload)
-    info.balance = response['balance']
-    info.pending = response['pending']
-    info.accounts_count = response['accounts_count']
-    info.adhoc_count = response['adhoc_count']
-    info.deterministic_count = response['deterministic_count']
-    info.deterministic_index = response['deterministic_index']
+    info.balance = response["balance"]
+    info.pending = response["pending"]
+    info.accounts_count = response["accounts_count"]
+    info.adhoc_count = response["adhoc_count"]
+    info.deterministic_count = response["deterministic_count"]
+    info.deterministic_index = response["deterministic_index"]
     return info
 
 
-def get_wallet_ledger(wallet, representative="false", weight="false", pending="false", modified_since=0):
+def get_wallet_ledger(
+    wallet, representative="false", weight="false", pending="false", modified_since=0
+):
     payload = {
         "action": "wallet_ledger",
         "wallet": wallet,
         "representative": representative,
         "weight": weight,
         "pending": pending,
-        "modified_since": modified_since}
+        "modified_since": modified_since,
+    }
     response = post_get(API, payload)
-    accounts = response['accounts']
+    accounts = response["accounts"]
     return accounts
 
 
 def wallet_lock(wallet):
-    payload = {
-        "action": "wallet_lock",
-        "wallet": wallet}
+    payload = {"action": "wallet_lock", "wallet": wallet}
     response = post_get(API, payload)
-    locked = response['locked']
+    locked = response["locked"]
     return locked
 
 
 def get_wallet_locked(wallet):
-    payload = {
-        "action": "wallet_locked",
-        "wallet": wallet}
+    payload = {"action": "wallet_locked", "wallet": wallet}
     response = post_get(API, payload)
-    locked = response['locked']
+    locked = response["locked"]
     return locked
 
 
-def get_wallet_pending(wallet, count=-1, threshold=0, source="false", include_active="false", min_version="false", include_only_confirmed="false"):
+def get_wallet_pending(
+    wallet,
+    count=-1,
+    threshold=0,
+    source="false",
+    include_active="false",
+    min_version="false",
+    include_only_confirmed="false",
+):
     payload = {
         "action": "wallet_pending",
         "wallet": wallet,
@@ -1187,18 +1243,17 @@ def get_wallet_pending(wallet, count=-1, threshold=0, source="false", include_ac
         "source": source,
         "include_active": include_active,
         "min_version": min_version,
-        "include_only_confirmed": include_only_confirmed}
+        "include_only_confirmed": include_only_confirmed,
+    }
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
 def get_wallet_representative(wallet):
-    payload = {
-        "action": "wallet_representative",
-        "wallet": wallet}
+    payload = {"action": "wallet_representative", "wallet": wallet}
     response = post_get(API, payload)
-    representative = response['representative']
+    representative = response["representative"]
     return representative
 
 
@@ -1207,68 +1262,56 @@ def set_wallet_representative(wallet, representative, update_existing_accounts="
         "action": "wallet_representative_set",
         "wallet": wallet,
         "representative": representative,
-        "update_existing_accounts": update_existing_accounts}
+        "update_existing_accounts": update_existing_accounts,
+    }
     response = post_get(API, payload)
-    success = response['set']
+    success = response["set"]
     return success
 
 
 def wallet_republish(wallet, count=-1):
-    payload = {
-        "action": "wallet_history",
-        "wallet": wallet,
-        "count": count}
+    payload = {"action": "wallet_history", "wallet": wallet, "count": count}
     response = post_get(API, payload)
-    blocks = response['blocks']
+    blocks = response["blocks"]
     return blocks
 
 
 def get_wallet_work(wallet):
-    payload = {
-        "action": "wallet_work_get",
-        "wallet": wallet}
+    payload = {"action": "wallet_work_get", "wallet": wallet}
     response = post_get(API, payload)
-    works = response['works']
+    works = response["works"]
     return works
 
 
 def get_work(wallet, account):
-    payload = {
-        "action": "get_work",
-        "wallet": wallet,
-        "account": account}
+    payload = {"action": "get_work", "wallet": wallet, "account": account}
     response = post_get(API, payload)
-    work = response['work']
+    work = response["work"]
     return work
 
 
 def set_work(wallet, account, work):
-    payload = {
-        "action": "get_work",
-        "wallet": wallet,
-        "account": account,
-        "work": work}
+    payload = {"action": "get_work", "wallet": wallet, "account": account, "work": work}
     response = post_get(API, payload)
-    success = response['success']
+    success = response["success"]
     return success
 
 
 def ban_from_raw(amount):
-    amount = amount/10**29
+    amount = amount / 10 ** 29
     return amount
 
 
 def ban_to_raw(amount):
-    amount = amount*(10**29)
+    amount = amount * (10 ** 29)
     return amount
 
 
 def ban_to_banoshi(amount):
-    amount = amount*100
+    amount = amount * 100
     return amount
 
 
 def ban_from_banoshi(amount):
-    amount = amount/100
+    amount = amount / 100
     return amount
-
