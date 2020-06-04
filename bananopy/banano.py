@@ -785,7 +785,7 @@ def receive_minimum():
     return defaultdict(int, response)
 
 
-def set_receive_minimum(amount):
+def receive_minimum_set(amount):
     payload = {"action": "receive_minimum_set", "amount": amount}
     response = post(API, payload)
     return defaultdict(int, response)
@@ -803,6 +803,7 @@ def search_pending_all():
     return defaultdict(int, response)
 
 
+# TODO: add id
 def send(wallet, source, destination, amount):
     payload = {
         "action": "send",
@@ -845,16 +846,18 @@ def wallet_contains(wallet, account):
     return defaultdict(int, response)
 
 
+# TODO: add seed as optional parameter
 def wallet_create():
     payload = {"action": "wallet_create"}
     response = post(API, payload)
     return defaultdict(int, response)
 
 
-def seed_wallet_create(seed):
-    payload = {"action": "wallet_create", "seed": seed}
-    response = post(API, payload)
-    return defaultdict(int, response)
+# TODO: merge with one above
+# def seed_wallet_create(seed):
+#     payload = {"action": "wallet_create", "seed": seed}
+#     response = post(API, payload)
+#     return defaultdict(int, response)
 
 
 def wallet_destroy(wallet):
@@ -947,7 +950,7 @@ def wallet_representative(wallet):
     return defaultdict(int, response)
 
 
-def set_wallet_representative(wallet, representative, update_existing_accounts=False):
+def wallet_representative_set(wallet, representative, update_existing_accounts=False):
     payload = {
         "action": "wallet_representative_set",
         "wallet": wallet,
@@ -964,20 +967,20 @@ def wallet_republish(wallet, count=-1):
     return defaultdict(int, response)
 
 
-def wallet_work(wallet):
+def wallet_work_get(wallet):
     payload = {"action": "wallet_work_get", "wallet": wallet}
     response = post(API, payload)
     return defaultdict(int, response)
 
 
-def work(wallet, account):
-    payload = {"action": "get_work", "wallet": wallet, "account": account}
+def work_get(wallet, account):
+    payload = {"action": "work_get", "wallet": wallet, "account": account}
     response = post(API, payload)
     return defaultdict(int, response)
 
 
-def set_work(wallet, account, work):
-    payload = {"action": "get_work", "wallet": wallet, "account": account, "work": work}
+def work_set(wallet, account, work):
+    payload = {"action": "work_set", "wallet": wallet, "account": account, "work": work}
     response = post(API, payload)
     return defaultdict(int, response)
 
