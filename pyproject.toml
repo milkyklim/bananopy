@@ -50,6 +50,3 @@ exclude = '''
   | dist
 )/
 '''
-
-# [tool.poetry.scripts]
-# banano = 'bananopy.banano:main'
