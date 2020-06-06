@@ -261,7 +261,7 @@ def test_block_info(block_hash=BLOCK_HASH):
         },
         "subtype": "receive",
     }
-    response = ban.block_info(block_hash)
+    response = ban.block_info(block_hash, json_block=True)
     assert response == expected
 
 
@@ -294,7 +294,7 @@ def test_blocks(hashes=[BLOCK_HASH]):
             }
         }
     }
-    response = ban.blocks(hashes)
+    response = ban.blocks(hashes, json_block=True)
     assert response == expected
 
 
@@ -323,7 +323,7 @@ def test_blocks_info(hashes=[BLOCK_HASH]):
             }
         }
     }
-    response = ban.blocks_info(hashes)
+    response = ban.blocks_info(hashes, json_block=True)
     assert response == expected
 
 
