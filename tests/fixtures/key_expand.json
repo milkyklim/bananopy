@@ -1,0 +1,13 @@
+[
+  {
+    "request": {
+      "action": "key_expand",
+      "private_key": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
+    },
+    "expected": {
+      "private": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
+      "public": "657A078D611D7DC2A159BFBC3B457782D7379910DA050E92CFDA4B9C906BEF8E",
+      "account": "ban_1sdt1y8p49dxrciomhxw9f4qh1pq8yej3pi73tbezpkdmka8quwgke9m9719"
+    }
+  }
+]

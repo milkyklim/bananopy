@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "unchecked"
+    },
+    "expected": {
+      "blocks": ""
+    }
+  }
+]

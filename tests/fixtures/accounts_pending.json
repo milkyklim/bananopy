@@ -1,0 +1,21 @@
+[
+  {
+    "request": {
+      "action": "accounts_pending",
+      "accounts": [
+        "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
+      ]
+    },
+    "expected": {
+      "blocks": {
+        "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq": [
+          "5E5C7C3792A436925C45989323BB2680D619DD305780CB6255ECFA282B810AD4",
+          "73F79E4ABC5DD1F5631BF5DF896AA4B78C119EA54D0E677F49DE18894A43737C",
+          "8B999BA7EDB2B6C06EBE65423C778C803B8168F3D89B049703C6D96A444F8994",
+          "A73075C4054DA96D96D3E3B776B029D65ECC337832C1E9C2FD0791751FC20D6D",
+          "F975D8D223A453051885A59DFDDA5025DE003C02AA666F97717EF781D3144868"
+        ]
+      }
+    }
+  }
+]

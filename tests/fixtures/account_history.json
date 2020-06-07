@@ -1,0 +1,22 @@
+[
+  {
+    "request": {
+      "action": "account_history",
+      "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
+      "count": 1
+    },
+    "expected": {
+      "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
+      "history": [
+        {
+          "type": "receive",
+          "account": "ban_3uicdzy8ckcqsi5efyoy16u4y5dqkimawbzuwzj5jnxpjxmxjn9q8yyykkxc",
+          "amount": "6900000000000000000000000000000",
+          "local_timestamp": "1590691741",
+          "height": "1",
+          "hash": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
+        }
+      ]
+    }
+  }
+]

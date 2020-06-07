@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "stats_clear"
+    },
+    "expected": {
+      "success": ""
+    }
+  }
+]

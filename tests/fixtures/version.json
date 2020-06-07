@@ -1,0 +1,16 @@
+[
+  {
+    "request": {
+      "action": "version"
+    },
+    "expected": {
+      "rpc_version": "1",
+      "store_version": "15",
+      "protocol_version": "17",
+      "node_vendor": "BANANO V20.0",
+      "network": "live",
+      "network_identifier": "F61A79F286ABC5CC01D3D09686F0567812B889A5C63ADE0E82DD30F3B2D96463",
+      "build_info": "882e9eb \"GNU C++ version \" \"5.4.0 20160609\" \"BOOST 107000\" BUILT \"May 26 2020\""
+    }
+  }
+]
