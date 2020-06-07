@@ -13,79 +13,68 @@ def post(API, payload):
     return json_resp
 
 
-def account_balance(account):
-    payload = {
-        "action": "account_balance",
-        "account": account,
-    }
-    response = post(API, payload)
+def call(action, params=None):
+    params = params or {}
+    params["action"] = action
+    response = post(API, params)
     return defaultdict(int, response)
+
+
+def account_balance(account):
+    payload = {"account": account}
+    return call("account_balance", payload)
 
 
 def account_block_count(account):
-    payload = {
-        "action": "account_block_count",
-        "account": account,
-    }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account}
+    return call("account_block_count", payload)
 
 
 def account_get(pub_key):
-    payload = {"action": "account_get", "key": pub_key}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"key": pub_key}
+    return call("account_get", payload)
 
 
 def account_history(
     account, count, raw=False, head="", offset=0, reverse=False, account_filter=[]
 ):
-    payload = {"action": "account_history", "account": account, "count": count}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account, "count": count}
+    return call("account_history", payload)
 
 
 def account_info(account, representative=False, weight=False, pending=False):
     payload = {
-        "action": "account_info",
         "account": account,
         "representative": representative,
         "weight": weight,
         "pending": pending,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("account_info", payload)
 
 
 def account_key(account):
-    payload = {"action": "account_key", "account": account}
-    response = post(API, payload)
-    pub_key = defaultdict(int, response)
-    return pub_key
+    payload = {"account": account}
+    return call("account_key", payload)
 
 
 def account_representative(account):
-    payload = {"action": "account_representative", "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account}
+    return call("account_representative", payload)
 
 
 def account_weight(account):
-    payload = {"action": "account_weight", "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account}
+    return call("account_weight", payload)
 
 
 def accounts_balances(accounts):
-    payload = {"action": "accounts_balances", "accounts": accounts}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"accounts": accounts}
+    return call("accounts_balances", payload)
 
 
 def accounts_frontiers(accounts):
-    payload = {"action": "accounts_frontiers", "accounts": accounts}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"accounts": accounts}
+    return call("accounts_frontiers", payload)
 
 
 def accounts_pending(
@@ -97,7 +86,6 @@ def accounts_pending(
     include_only_confirmed=False,
 ):
     payload = {
-        "action": "accounts_pending",
         "accounts": accounts,
         "threshold": threshold,
         "source": source,
@@ -105,51 +93,41 @@ def accounts_pending(
         "sorting": sorting,
         "include_only_confirmed": include_only_confirmed,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("accounts_pending", payload)
 
 
 def active_difficulty(include_trend=False):
-    payload = {"action": "active_difficulty", "include_trend": include_trend}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"include_trend": include_trend}
+    return call("active_difficulty", payload)
 
 
 def available_supply():
-    payload = {"action": "available_supply"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("available_supply")
 
 
 def block_account(block_hash):
-    payload = {"action": "block_account", "hash": block_hash}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"hash": block_hash}
+    return call("block_account", payload)
 
 
 def block_confirm(block_hash):
-    payload = {"action": "block_confirm", "hash": block_hash}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"hash": block_hash}
+    return call("block_confirm", payload)
 
 
 def block_count(include_cemented=True):
-    payload = {"action": "block_count", "include_cemented": include_cemented}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"include_cemented": include_cemented}
+    return call("block_count", payload)
 
 
 def block_count_type():
-    payload = {"action": "block_count_type"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("block_count_type")
 
 
 def block_create(
     block_type, balance, key, representative, link, previous, json_block=False
 ):
     payload = {
-        "action": "block_create",
         "type": block_type,
         "balance": balance,
         "key": key,
@@ -158,8 +136,7 @@ def block_create(
         "previous": previous,
         "json_block": json_block,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("block_create", payload)
 
 
 def block_hash(
@@ -176,7 +153,6 @@ def block_hash(
 ):
 
     payload = {
-        "action": "block_hash",
         "json_block": json_block,
         "block": {
             "type": block_type,
@@ -190,28 +166,23 @@ def block_hash(
             "work": work,
         },
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("block_hash", payload)
 
 
 def block_info(block_hash, json_block=False):
     payload = {
-        "action": "block_info",
         "json_block": json_block,
         "hash": block_hash,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("block_info", payload)
 
 
 def blocks(hashes, json_block=False):
     payload = {
-        "action": "blocks",
         "json_block": json_block,
         "hashes": hashes,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("blocks", payload)
 
 
 def blocks_info(
@@ -223,7 +194,6 @@ def blocks_info(
     json_block=False,
 ):
     payload = {
-        "action": "blocks_info",
         "json_block": json_block,
         "include_not_found": include_not_found,
         "hashes": hashes,
@@ -231,157 +201,125 @@ def blocks_info(
         "source": source,
         "balance": balance,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("blocks_info", payload)
 
 
 def bootstrap(address, port, bypass_frontier_confirmation=False):
     payload = {
-        "action": "bootstrap",
         "address": address,
         "port": port,
         "bypass_frontier_confirmation": bypass_frontier_confirmation,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("bootstrap", payload)
 
 
 def bootstrap_any(force=False):
-    payload = {"action": "bootstrap_any", "force": force}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"force": force}
+    return call("bootstrap_any", payload)
 
 
 def bootstrap_lazy(block_hash, force=False):
-    payload = {"action": "bootstrap_any", "hash": block_hash, "force": force}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"hash": block_hash, "force": force}
+    return call("bootstrap_any", payload)
 
 
 def bootstrap_status():
-    payload = {"action": "bootstrap_status"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("bootstrap_status")
 
 
 def chain(block_hash, count=-1, offset=0, reverse=False):
     payload = {
-        "action": "chain",
         "block": block_hash,
         "count": count,
         "offset": offset,
         "reverse": reverse,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("chain", payload)
 
 
 def confirmation_active(announcements=0):
-    payload = {"action": "confirmation_active", "announcements": announcements}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"announcements": announcements}
+    return call("confirmation_active", payload)
 
 
 def confirmation_height_currently_processing():
-    payload = {"action": "confirmation_height_currently_processing"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("confirmation_height_currently_processing")
 
 
 def confirmation_history(block_hash=None):
     payload = {
-        "action": "confirmation_history",
         **({"block_hash": block_hash} if block_hash else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("confirmation_history", payload)
 
 
 def confirmation_info(root, representatives=False, contents=False, json_block=False):
     payload = {
-        "action": "confirmation_info",
         "json_block": json_block,
         "root": root,
         "contents": contents,
         "representatives": representatives,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("confirmation_info", payload)
 
 
 def confirmation_quorum(peer_details=False, peers_stake_required=0):
     payload = {
-        "action": "confirmation_quorum",
         "peer_details": peer_details,
         "peers_stake_required": peers_stake_required,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("confirmation_quorum", payload)
 
 
 def database_txn_tracker():
-    payload = {"action": "database_txn_tracker"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("database_txn_tracker")
 
 
 def delegators(account):
-    payload = {"action": "delegators", "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account}
+    return call("delegators", payload)
 
 
 def delegators_count(account):
-    payload = {"action": "delegators_count", "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account}
+    return call("delegators_count", payload)
 
 
 def deteministic_key(seed, index=0):
-    payload = {"action": "deterministic_key", "seed": seed, "index": index}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"seed": seed, "index": index}
+    return call("deterministic_key", payload)
 
 
 def epoch_upgrade(epoch, key, count=None):
     payload = {
-        "action": "epoch_upgrade",
         "epoch": epoch,
         "key": key,
         **({"count": count} if count else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("epoch_upgrade", payload)
 
 
 def frontier_count():
-    payload = {"action": "frontier_count"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("frontier_count")
 
 
 def frontiers(account, count=-1):
-    payload = {"action": "frontiers", "account": account, "count": count}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account, "count": count}
+    return call("frontiers", payload)
 
 
 def keepalive(address, port):
-    payload = {"action": "keepalive", "address": address, "port": port}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"address": address, "port": port}
+    return call("keepalive", payload)
 
 
 def key_create():
-    payload = {"action": "key_create"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("key_create")
 
 
 def key_expand(private_key):
-    payload = {"action": "key_expand", "key": private_key}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"key": private_key}
+    return call("key_expand", payload)
 
 
 def ledger(
@@ -395,7 +333,6 @@ def ledger(
     threshold=0,
 ):
     payload = {
-        "action": "ledger",
         "account": account,
         "count": count,
         "representative": representative,
@@ -405,33 +342,25 @@ def ledger(
         "sorting": sorting,
         "threshold": threshold,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("ledger", payload)
 
 
 def node_id():
-    payload = {"action": "node_id"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("node_id")
 
 
 def node_id_delete():
-    payload = {"action": "node_id_delete"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("node_id_delete")
 
 
 # version 21.0+
 # def node_telemetry():
-#     payload = {"action": "node_telemetry"}
-#     response = post(API, payload)
-#     return defaultdict(int, response)
+#     return call("node_telemetry")
 
 
 def peers(peer_details=False):
-    payload = {"action": "peers", "peer_details": peer_details}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"peer_details": peer_details}
+    return call("peers", payload)
 
 
 def pending(
@@ -445,7 +374,6 @@ def pending(
     include_only_confirmed=True,
 ):
     payload = {
-        "action": "pending",
         "account": account,
         "count": count,
         "threshold": threshold,
@@ -455,19 +383,16 @@ def pending(
         "sorting": sorting,
         "include_only_confirmed": include_only_confirmed,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("pending", payload)
 
 
 def pending_exists(block_hash, include_active=False, include_only_confirmed=False):
     payload = {
-        "action": "pending_exists",
         "hash": block_hash,
         "include_active": include_active,
         "include_only_confirmed": include_only_confirmed,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("pending_exists", payload)
 
 
 def process(
@@ -486,7 +411,6 @@ def process(
     watch_work=True,
 ):
     payload = {
-        "action": "process",
         "json_block": json_block,
         "subtype": subtype,
         "watch_work": watch_work,
@@ -503,31 +427,26 @@ def process(
         },
         "force": force,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("process", payload)
 
 
 def representatives(count=-1, sorting=False):
-    payload = {"action": "representatives", "count": count, "sorting": sorting}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"count": count, "sorting": sorting}
+    return call("representatives", payload)
 
 
 def representatives_online(weight=False):
-    payload = {"action": "representatives_online", "weight": weight}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"weight": weight}
+    return call("representatives_online", payload)
 
 
 def republish(block_hash, sources=False, destinations=False):
     payload = {
-        "action": "republish",
         "hash": block_hash,
         "sources": sources,
         "destinations": destinations,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("republish", payload)
 
 
 def sign(
@@ -545,7 +464,6 @@ def sign(
     json_block=False,
 ):
     payload = {
-        "action": "sign",
         "json_block": json_block,
         **({"key": private_key} if private_key else {}),
         **({"wallet": wallet} if wallet else {}),
@@ -562,269 +480,215 @@ def sign(
             "work": work,
         },
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("sign", payload)
 
 
 # TODO: add support
 # def sign_hash(hash):
-#     payload = {"action": "sign", "hash": hash}
-#     response = post(API, payload)
-#     return defaultdict(int, response)
+#     payload = {"hash": hash}
+#     return call("sign", payload)
 
 
 def stats(stats_type):
-    payload = {"action": "stats", "type": stats_type}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"type": stats_type}
+    return call("stats", payload)
 
 
 def stats_clear():
-    payload = {"action": "stats_clear"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("stats_clear")
 
 
 def stop():
-    payload = {"action": "stop"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("stop")
 
 
 def successors(block_hash, count=-1, offset=0, reverse=False):
     payload = {
-        "action": "successors",
         "block": block_hash,
         "count": count,
         "offset": offset,
         "reverse": reverse,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("successors", payload)
 
 
 def validate_account_number(account):
-    payload = {"action": "validate_account_number", "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"account": account}
+    return call("validate_account_number", payload)
 
 
 def version():
-    payload = {"action": "version"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("version")
 
 
 def unchecked(count=-1, json_block=False):
-    payload = {"action": "unchecked", "count": count, "json_block": json_block}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"count": count, "json_block": json_block}
+    return call("unchecked", payload)
 
 
 def unchecked_clear():
-    payload = {"action": "unchecked_clear"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("unchecked_clear")
 
 
 def unchecked_get(block_hash, json_block=False):
-    payload = {"action": "unchecked_get", "hash": block_hash, "json_block": json_block}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"hash": block_hash, "json_block": json_block}
+    return call("unchecked_get", payload)
 
 
 def unchecked_keys(key, count=-1, json_block=False):
     payload = {
-        "action": "unchecked_keys",
         "key": key,
         "count": count,
         "json_block": json_block,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("unchecked_keys", payload)
 
 
 def unopened(account, count=-1, threshold=0):
     payload = {
-        "action": "unopened",
         "account": account,
         "count": count,
         "threshold": threshold,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("unopened", payload)
 
 
 def uptime():
-    payload = {"action": "uptime"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("uptime")
 
 
 def work_cancel(block_hash):
-    payload = {"action": "work_cancel", "hash": block_hash}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"hash": block_hash}
+    return call("work_cancel", payload)
 
 
 def work_generate(
     block_hash, use_peers=False, difficulty=None, multiplier=None, account=None
 ):
     payload = {
-        "action": "work_generate",
         "hash": block_hash,
         "use_peers": use_peers,
         **({"difficulty": difficulty} if difficulty else {}),
         **({"multiplier": multiplier} if multiplier else {}),
         **({"account": difficulty} if account else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("work_generate", payload)
 
 
 def work_peer_add(address, port):
-    payload = {"action": "work_peer_add", "address": address, "port": port}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"address": address, "port": port}
+    return call("work_peer_add", payload)
 
 
 def work_peers():
-    payload = {"action": "work_peers"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("work_peers")
 
 
 def work_peers_clear():
-    payload = {"action": "work_peers_clear"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("work_peers_clear")
 
 
 def work_validate(work, hash, difficulty=None, multiplier=None):
     payload = {
-        "action": "work_validate",
         "hash": hash,
         **({"difficulty": difficulty} if difficulty else {}),
         **({"multiplier": multiplier} if multiplier else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("work_validate", payload)
 
 
 def account_create(wallet, index=None, work=True):
     payload = {
-        "action": "account_create",
         "wallet": wallet,
         "work": work,
         **({"index": index} if index else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("account_create", payload)
 
 
 def account_list(wallet):
-    payload = {"action": "account_list", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("account_list", payload)
 
 
 def account_move(wallet, source, accounts):
     payload = {
-        "action": "account_move",
         "wallet": wallet,
         "source": source,
         "accounts": accounts,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("account_move", payload)
 
 
 def account_remove(wallet, account):
-    payload = {"action": "account_remove", "wallet": wallet, "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "account": account}
+    return call("account_remove", payload)
 
 
 def account_representative_set(wallet, account, representative, work=None):
     payload = {
-        "action": "account_representative_set",
         "wallet": wallet,
         "account": account,
         "representative": representative,
         **({"work": work} if work else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("account_representative_set", payload)
 
 
 def accounts_create(wallet, count, work=True):
     payload = {
-        "action": "accounts_create",
         "wallet": wallet,
         "count": count,
         "work": work,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("accounts_create", payload)
 
 
 def password_change(wallet, password):
-    payload = {"action": "password_change", "wallet": wallet, "password": password}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "password": password}
+    return call("password_change", payload)
 
 
 def password_enter(wallet, password):
-    payload = {"action": "password_enter", "wallet": wallet, "password": password}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "password": password}
+    return call("password_enter", payload)
 
 
 def password_valid(wallet):
-    payload = {"action": "password_valid", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("password_valid", payload)
 
 
 def receive(wallet, account, block, work=None):
     payload = {
-        "action": "receive",
         "wallet": wallet,
         "account": account,
         "block": block,
         **({"work": work} if work else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("receive", payload)
 
 
 def receive_minimum():
-    payload = {"action": "receive_minimum"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("receive_minimum")
 
 
 def receive_minimum_set(amount):
-    payload = {"action": "receive_minimum_set", "amount": amount}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"amount": amount}
+    return call("receive_minimum_set", payload)
 
 
 def search_pending(wallet):
-    payload = {"action": "search_pending", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("search_pending", payload)
 
 
 def search_pending_all():
-    payload = {"action": "search_pending_all"}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("search_pending_all")
 
 
 def send(wallet, source, destination, amount, id=None, work=None):
     payload = {
-        "action": "send",
         "wallet": wallet,
         "source": source,
         "destination": destination,
@@ -832,117 +696,97 @@ def send(wallet, source, destination, amount, id=None, work=None):
         **({"id": id} if id else {}),
         **({"work": work} if work else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("send", payload)
 
 
 def wallet_add(wallet, key, work=False):
-    payload = {"action": "wallet_add", "wallet": wallet, "key": key, "work": work}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "key": key, "work": work}
+    return call("wallet_add", payload)
 
 
 def wallet_add_watch(wallet, accounts):
-    payload = {"action": "wallet_add_watch", "wallet": wallet, "accounts": accounts}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "accounts": accounts}
+    return call("wallet_add_watch", payload)
 
 
 def wallet_balances(wallet, threshold=None):
     payload = {
-        "action": "wallet_balances",
         "wallet": wallet,
         **({"threshold": threshold} if threshold else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_balances", payload)
 
 
 def wallet_change_seed(wallet, seed, count=0):
     payload = {
-        "action": "wallet_change_seed",
         "wallet": wallet,
         "seed": seed,
         "count": count,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_change_seed", payload)
 
 
 def wallet_contains(wallet, account):
-    payload = {"action": "wallet_contains", "wallet": wallet, "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "account": account}
+    return call("wallet_contains", payload)
 
 
 def wallet_create(seed=None):
     payload = {
-        "action": "wallet_create",
         **({"seed": seed} if seed else {}),
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_create", payload)
 
 
 def wallet_destroy(wallet):
-    payload = {"action": "wallet_destroy", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_destroy", payload)
 
 
 def wallet_export(wallet):
-    payload = {"action": "wallet_export", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_export", payload)
 
 
 def wallet_frontiers(wallet):
-    payload = {"action": "wallet_frontiers", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_frontiers", payload)
 
 
 def wallet_history(wallet, modified_since=0):
     payload = {
-        "action": "wallet_history",
         "wallet": wallet,
         "modified_since": modified_since,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_history", payload)
 
 
 def wallet_info(wallet):
-    payload = {"action": "wallet_info", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_info", payload)
 
 
 def wallet_ledger(
     wallet, representative=False, weight=False, pending=False, modified_since=0
 ):
     payload = {
-        "action": "wallet_ledger",
         "wallet": wallet,
         "representative": representative,
         "weight": weight,
         "pending": pending,
         "modified_since": modified_since,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_ledger", payload)
 
 
 def wallet_lock(wallet):
-    payload = {"action": "wallet_lock", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_lock", payload)
 
 
 def wallet_locked(wallet):
-    payload = {"action": "wallet_locked", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_locked", payload)
 
 
 def wallet_pending(
@@ -955,7 +799,6 @@ def wallet_pending(
     include_only_confirmed=False,
 ):
     payload = {
-        "action": "wallet_pending",
         "wallet": wallet,
         "count": count,
         **({"threshold": threshold} if threshold else {}),
@@ -964,49 +807,41 @@ def wallet_pending(
         "min_version": min_version,
         "include_only_confirmed": include_only_confirmed,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_pending", payload)
 
 
 def wallet_representative(wallet):
-    payload = {"action": "wallet_representative", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_representative", payload)
 
 
 def wallet_representative_set(wallet, representative, update_existing_accounts=False):
     payload = {
-        "action": "wallet_representative_set",
         "wallet": wallet,
         "representative": representative,
         "update_existing_accounts": update_existing_accounts,
     }
-    response = post(API, payload)
-    return defaultdict(int, response)
+    return call("wallet_representative_set", payload)
 
 
 def wallet_republish(wallet, count=-1):
-    payload = {"action": "wallet_history", "wallet": wallet, "count": count}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "count": count}
+    return call("wallet_history", payload)
 
 
 def wallet_work_get(wallet):
-    payload = {"action": "wallet_work_get", "wallet": wallet}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet}
+    return call("wallet_work_get", payload)
 
 
 def work_get(wallet, account):
-    payload = {"action": "work_get", "wallet": wallet, "account": account}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "account": account}
+    return call("work_get", payload)
 
 
 def work_set(wallet, account, work):
-    payload = {"action": "work_set", "wallet": wallet, "account": account, "work": work}
-    response = post(API, payload)
-    return defaultdict(int, response)
+    payload = {"wallet": wallet, "account": account, "work": work}
+    return call("work_set", payload)
 
 
 def ban_from_raw(amount):
