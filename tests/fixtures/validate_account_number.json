@@ -2,8 +2,10 @@
   {
     "request": {
       "action": "validate_account_number",
-      "block_hash": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
+      "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
     },
-    "expected": { "valid": "1" }
+    "expected": {
+      "valid": "1"
+    }
   }
 ]
