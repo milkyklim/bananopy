@@ -3,20 +3,18 @@ from collections import defaultdict
 
 from bananopy.constants import BANANO_HTTP_PROVIDER_URI
 
-API = BANANO_HTTP_PROVIDER_URI
-
 
 # FIXME: check for wrong response
-def post(API, payload):
-    resp = requests.post(API, json=payload)
+def post(payload, url=BANANO_HTTP_PROVIDER_URI):
+    resp = requests.post(url, json=payload)
     json_resp = resp.json()
     return json_resp
 
 
-def call(action, params=None):
+def call(action, params=None, url=BANANO_HTTP_PROVIDER_URI):
     params = params or {}
     params["action"] = action
-    response = post(API, params)
+    response = post(params, url)
     return defaultdict(int, response)
 
 
@@ -317,8 +315,8 @@ def key_create():
     return call("key_create")
 
 
-def key_expand(private_key):
-    payload = {"key": private_key}
+def key_expand(key):
+    payload = {"key": key}
     return call("key_expand", payload)
 
 
@@ -458,14 +456,14 @@ def sign(
     link_as_account,
     signature,
     work,
-    private_key=None,
+    key=None,
     wallet=None,
     account=None,
     json_block=False,
 ):
     payload = {
         "json_block": json_block,
-        **({"key": private_key} if private_key else {}),
+        **({"key": key} if key else {}),
         **({"wallet": wallet} if wallet else {}),
         **({"account": account} if account else {}),
         "block": {

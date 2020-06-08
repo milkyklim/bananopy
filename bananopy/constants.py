@@ -5,4 +5,4 @@ BANANO_HTTP_PROVIDER_URI = environ.get(
 )
 PORT = environ.get("PORT", 7072)
 
-print(f"Using {BANANO_HTTP_PROVIDER_URI} as API provider")
+print(f"Using {BANANO_HTTP_PROVIDER_URI} as API provider on port {PORT}")
