@@ -44,4 +44,4 @@ jobs:
       - name: Test with pytest
         env:
           BANANO_HTTP_PROVIDER_URI: ${{ secrets.BANANO_HTTP_PROVIDER_URI }}
-        run: poetry run pytest
+        run: poetry run pytest -v

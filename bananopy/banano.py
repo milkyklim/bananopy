@@ -103,13 +103,13 @@ def available_supply():
     return call("available_supply")
 
 
-def block_account(block_hash):
-    payload = {"hash": block_hash}
+def block_account(hash):
+    payload = {"hash": hash}
     return call("block_account", payload)
 
 
-def block_confirm(block_hash):
-    payload = {"hash": block_hash}
+def block_confirm(hash):
+    payload = {"hash": hash}
     return call("block_confirm", payload)
 
 
@@ -122,11 +122,9 @@ def block_count_type():
     return call("block_count_type")
 
 
-def block_create(
-    block_type, balance, key, representative, link, previous, json_block=False
-):
+def block_create(type, balance, key, representative, link, previous, json_block=False):
     payload = {
-        "type": block_type,
+        "type": type,
         "balance": balance,
         "key": key,
         "representative": representative,
@@ -138,7 +136,7 @@ def block_create(
 
 
 def block_hash(
-    block_type,
+    type,
     account,
     previous,
     representative,
@@ -153,7 +151,7 @@ def block_hash(
     payload = {
         "json_block": json_block,
         "block": {
-            "type": block_type,
+            "type": type,
             "account": account,
             "previous": previous,
             "representative": representative,
@@ -167,10 +165,10 @@ def block_hash(
     return call("block_hash", payload)
 
 
-def block_info(block_hash, json_block=False):
+def block_info(hash, json_block=False):
     payload = {
         "json_block": json_block,
-        "hash": block_hash,
+        "hash": hash,
     }
     return call("block_info", payload)
 
@@ -216,8 +214,8 @@ def bootstrap_any(force=False):
     return call("bootstrap_any", payload)
 
 
-def bootstrap_lazy(block_hash, force=False):
-    payload = {"hash": block_hash, "force": force}
+def bootstrap_lazy(hash, force=False):
+    payload = {"hash": hash, "force": force}
     return call("bootstrap_any", payload)
 
 
@@ -225,9 +223,9 @@ def bootstrap_status():
     return call("bootstrap_status")
 
 
-def chain(block_hash, count=-1, offset=0, reverse=False):
+def chain(hash, count=-1, offset=0, reverse=False):
     payload = {
-        "block": block_hash,
+        "block": hash,
         "count": count,
         "offset": offset,
         "reverse": reverse,
@@ -244,9 +242,9 @@ def confirmation_height_currently_processing():
     return call("confirmation_height_currently_processing")
 
 
-def confirmation_history(block_hash=None):
+def confirmation_history(hash=None):
     payload = {
-        **({"block_hash": block_hash} if block_hash else {}),
+        **({"hash": hash} if hash else {}),
     }
     return call("confirmation_history", payload)
 
@@ -384,9 +382,9 @@ def pending(
     return call("pending", payload)
 
 
-def pending_exists(block_hash, include_active=False, include_only_confirmed=False):
+def pending_exists(hash, include_active=False, include_only_confirmed=False):
     payload = {
-        "hash": block_hash,
+        "hash": hash,
         "include_active": include_active,
         "include_only_confirmed": include_only_confirmed,
     }
@@ -438,9 +436,9 @@ def representatives_online(weight=False):
     return call("representatives_online", payload)
 
 
-def republish(block_hash, sources=False, destinations=False):
+def republish(hash, sources=False, destinations=False):
     payload = {
-        "hash": block_hash,
+        "hash": hash,
         "sources": sources,
         "destinations": destinations,
     }
@@ -500,9 +498,9 @@ def stop():
     return call("stop")
 
 
-def successors(block_hash, count=-1, offset=0, reverse=False):
+def successors(hash, count=-1, offset=0, reverse=False):
     payload = {
-        "block": block_hash,
+        "block": hash,
         "count": count,
         "offset": offset,
         "reverse": reverse,
@@ -528,8 +526,8 @@ def unchecked_clear():
     return call("unchecked_clear")
 
 
-def unchecked_get(block_hash, json_block=False):
-    payload = {"hash": block_hash, "json_block": json_block}
+def unchecked_get(hash, json_block=False):
+    payload = {"hash": hash, "json_block": json_block}
     return call("unchecked_get", payload)
 
 
@@ -555,16 +553,16 @@ def uptime():
     return call("uptime")
 
 
-def work_cancel(block_hash):
-    payload = {"hash": block_hash}
+def work_cancel(hash):
+    payload = {"hash": hash}
     return call("work_cancel", payload)
 
 
 def work_generate(
-    block_hash, use_peers=False, difficulty=None, multiplier=None, account=None
+    hash, use_peers=False, difficulty=None, multiplier=None, account=None
 ):
     payload = {
-        "hash": block_hash,
+        "hash": hash,
         "use_peers": use_peers,
         **({"difficulty": difficulty} if difficulty else {}),
         **({"multiplier": multiplier} if multiplier else {}),

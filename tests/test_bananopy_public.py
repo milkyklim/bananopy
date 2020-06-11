@@ -7,7 +7,7 @@ from tests.constants import (
 )
 
 import bananopy.banano as ban
-from bananopy.utils import unfold_keys
+from .utils import unfold_keys
 from bananopy import __version__
 
 
@@ -138,7 +138,7 @@ def test_accounts_balances(accounts=[ADDRESS, BURN_ADDRESS]):
             },
             "ban_1burnbabyburndiscoinferno111111111111111111111111111aj49sw3w": {
                 "balance": "0",
-                "pending": "50432040866727713701998759104055400892",
+                "pending": "50432232766727713701998759104055400892",
             },
         }
     }
