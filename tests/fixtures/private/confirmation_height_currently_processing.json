@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "confirmation_height_currently_processing"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

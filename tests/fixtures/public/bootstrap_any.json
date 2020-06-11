@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "bootstrap_any"
+    },
+    "expected": {
+      "success": ""
+    }
+  }
+]

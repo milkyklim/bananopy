@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "unchecked_clear"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

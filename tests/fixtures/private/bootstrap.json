@@ -1,0 +1,13 @@
+[
+  {
+    "request": {
+      "action": "bootstrap",
+      "address": "::ffff:3.9.12.26",
+      "port": "1024",
+      "bypass_frontier_confirmation": false
+    },
+    "expected": {
+      "success": ""
+    }
+  }
+]

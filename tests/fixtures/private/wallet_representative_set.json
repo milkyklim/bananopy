@@ -1,0 +1,12 @@
+[
+  {
+    "request": {
+      "action": "wallet_representative_set",
+      "wallet": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600",
+      "representative": "ban_1ka1ium4pfue3uxtntqsrib8mumxgazsjf58gidh1xeo5te3whsq8z476goo"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "search_pending_all"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "request": {
+      "action": "wallet_contains",
+      "wallet": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600",
+      "account": "ban_3as1rsoxrxc51ikw8b1oehenge7bdf9nxb4xriqdhwkztekh6xp4fty5xopz"
+    },
+    "expected": {
+      "error": "Wallet not found"
+    }
+  }
+]

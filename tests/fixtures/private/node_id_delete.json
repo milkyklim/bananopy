@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "node_id_delete"
+    },
+    "expected": {
+      "deprecated": "1"
+    }
+  }
+]

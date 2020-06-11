@@ -1,0 +1,14 @@
+[
+  {
+    "request": {
+      "action": "send",
+      "wallet": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600",
+      "source": "ban_3as1rsoxrxc51ikw8b1oehenge7bdf9nxb4xriqdhwkztekh6xp4fty5xopz",
+      "destination": "ban_3as1rsoxrxc51ikw8b1oehenge7bdf9nxb4xriqdhwkztekh6xp4fty5xopz",
+      "amount": "0"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

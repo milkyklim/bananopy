@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "work_peers_clear"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "stop"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

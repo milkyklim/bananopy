@@ -1,0 +1,12 @@
+[
+  {
+    "request": {
+      "action": "epoch_upgrade",
+      "epoch": "0",
+      "key": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

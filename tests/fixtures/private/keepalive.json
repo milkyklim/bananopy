@@ -1,0 +1,12 @@
+[
+  {
+    "request": {
+      "action": "ledger",
+      "address": "[::ffff:3.9.12.26]",
+      "port": "1024"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

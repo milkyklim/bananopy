@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "wallet_create"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

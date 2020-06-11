@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "database_txn_tracker"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

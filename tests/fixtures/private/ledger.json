@@ -1,0 +1,11 @@
+[
+  {
+    "request": {
+      "action": "ledger",
+      "account": "ban_3as1rsoxrxc51ikw8b1oehenge7bdf9nxb4xriqdhwkztekh6xp4fty5xopz"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

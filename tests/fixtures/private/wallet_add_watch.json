@@ -1,0 +1,14 @@
+[
+  {
+    "request": {
+      "action": "wallet_add_watch",
+      "wallet": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600",
+      "accounts": [
+        "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
+      ]
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

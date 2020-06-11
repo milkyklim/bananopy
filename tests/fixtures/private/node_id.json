@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "node_id"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]

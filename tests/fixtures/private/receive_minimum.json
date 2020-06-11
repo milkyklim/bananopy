@@ -1,0 +1,10 @@
+[
+  {
+    "request": {
+      "action": "receive_minimum"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
+  }
+]
