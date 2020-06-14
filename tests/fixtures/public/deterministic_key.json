@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "action": "deteministic_key",
+      "action": "deterministic_key",
       "seed": "0000000000000000000000000000000000000000000000000000000000000000",
       "index": "0"
     },

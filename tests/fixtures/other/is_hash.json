@@ -1,0 +1,22 @@
+[
+  {
+    "args": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
+    "expected": true
+  },
+  {
+    "args": "0000000000000000000000000000000000000000000000000000000000000001",
+    "expected": true
+  },
+  {
+    "args": "000000000000000000000000000000000000000000000000000000000000001",
+    "expected": false
+  },
+  {
+    "args": "19",
+    "expected": false
+  },
+  {
+    "args": "7EKE13X7FFVINJ2WIVPD8Q6MQJ8PXRGGHKRFAP7K8Q6MQJ8PXRGGHKRFAP7KSNJV",
+    "expected": false
+  }
+]

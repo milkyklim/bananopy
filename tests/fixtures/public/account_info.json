@@ -8,11 +8,33 @@
       "frontier": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
       "open_block": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
       "representative_block": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
-      "balance": "6900000000000000000000000000000",
-      "modified_timestamp": "1590691741",
-      "block_count": "1",
-      "account_version": "0",
-      "confirmation_height": "1"
+      "balance": 6900000000000000000000000000000,
+      "modified_timestamp": 1590691741,
+      "block_count": 1,
+      "account_version": 0,
+      "confirmation_height": 1
+    }
+  },
+  {
+    "request": {
+      "action": "account_info",
+      "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
+      "representative": true,
+      "weight": true,
+      "pending": true
+    },
+    "expected": {
+      "frontier": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
+      "open_block": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
+      "representative_block": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD",
+      "balance": 6900000000000000000000000000000,
+      "modified_timestamp": 1590691741,
+      "block_count": 1,
+      "account_version": 0,
+      "confirmation_height": 1,
+      "representative": "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr",
+      "weight": 0,
+      "pending": 114811000000000000000000000000000
     }
   }
 ]

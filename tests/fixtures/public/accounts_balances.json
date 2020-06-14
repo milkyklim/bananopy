@@ -10,12 +10,12 @@
     "expected": {
       "balances": {
         "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq": {
-          "balance": "6900000000000000000000000000000",
-          "pending": "114811000000000000000000000000000"
+          "balance": 6900000000000000000000000000000,
+          "pending": 114811000000000000000000000000000
         },
         "ban_1burnbabyburndiscoinferno111111111111111111111111111aj49sw3w": {
-          "balance": "0",
-          "pending": "50432232766727713701998759104055400892"
+          "balance": 0,
+          "pending": 50432310666727713701998759104055400892
         }
       }
     }

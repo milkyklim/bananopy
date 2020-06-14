@@ -5,8 +5,8 @@
       "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
     },
     "expected": {
-      "balance": "6900000000000000000000000000000",
-      "pending": "114811000000000000000000000000000"
+      "balance": 6900000000000000000000000000000,
+      "pending": 114811000000000000000000000000000
     }
   }
 ]

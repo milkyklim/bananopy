@@ -5,7 +5,7 @@
       "hash": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
     },
     "expected": {
-      "exists": "0"
+      "exists": 0
     }
   }
 ]

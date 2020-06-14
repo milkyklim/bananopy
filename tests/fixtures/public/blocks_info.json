@@ -11,17 +11,17 @@
       "blocks": {
         "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD": {
           "block_account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
-          "amount": "6900000000000000000000000000000",
-          "balance": "6900000000000000000000000000000",
-          "height": "1",
-          "local_timestamp": "1590691741",
+          "amount": 6900000000000000000000000000000,
+          "balance": 6900000000000000000000000000000,
+          "height": 1,
+          "local_timestamp": 1590691741,
           "confirmed": "true",
           "contents": {
             "type": "state",
             "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
             "previous": "0000000000000000000000000000000000000000000000000000000000000000",
             "representative": "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr",
-            "balance": "6900000000000000000000000000000",
+            "balance": 6900000000000000000000000000000,
             "link": "BE9212348E60305F447EF05C70E0CE3B25085CF70C527D5D4BA96C9C549D9962",
             "link_as_account": "ban_3hnk4atawr3idx49xw4wg5iewgs733ghg54khognqcdemjcbu8d48i9w66d3",
             "signature": "83F3BAF9993E9A8944D4052D3E99992918D43D74BF964BA13716E603D9C7B4EAC1CD3741F232E9B8D96C9858003C3D08C453A779171A607EC4B01143655D3800",

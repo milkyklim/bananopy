@@ -4,7 +4,7 @@
       "action": "node_id_delete"
     },
     "expected": {
-      "deprecated": "1"
+      "deprecated": 1
     }
   }
 ]

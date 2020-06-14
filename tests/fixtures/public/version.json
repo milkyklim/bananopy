@@ -4,9 +4,9 @@
       "action": "version"
     },
     "expected": {
-      "rpc_version": "1",
-      "store_version": "15",
-      "protocol_version": "17",
+      "rpc_version": 1,
+      "store_version": 15,
+      "protocol_version": 17,
       "node_vendor": "BANANO V20.0",
       "network": "live",
       "network_identifier": "F61A79F286ABC5CC01D3D09686F0567812B889A5C63ADE0E82DD30F3B2D96463",
