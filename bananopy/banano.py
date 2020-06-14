@@ -4,28 +4,37 @@ from collections import defaultdict
 from bananopy.constants import BANANO_HTTP_PROVIDER_URI
 
 
-# FIXME: check for wrong response
-def post(payload, url=BANANO_HTTP_PROVIDER_URI):
-    resp = requests.post(url, json=payload)
-    json_resp = resp.json()
-    return json_resp
+class NodeException(Exception):
+    """ Base class for RPC errors """
 
 
 def call(action, params=None, url=BANANO_HTTP_PROVIDER_URI):
     params = params or {}
     params["action"] = action
-    response = post(params, url)
-    return defaultdict(int, response)
+    response = requests.post(url, json=params)
+    json_response = response.json()
+
+    if "error" in json_response:
+        raise NodeException(json_response)
+
+    return defaultdict(str, json_response)
 
 
 def account_balance(account):
     payload = {"account": account}
-    return call("account_balance", payload)
+    r = call("account_balance", payload)
+    for k, v in r.items():
+        r[k] = int(v)
+
+    return r
 
 
 def account_block_count(account):
     payload = {"account": account}
-    return call("account_block_count", payload)
+    r = call("account_block_count", payload)
+    r["block_count"] = int(r["block_count"])
+
+    return r
 
 
 def account_get(pub_key):
@@ -37,7 +46,12 @@ def account_history(
     account, count, raw=False, head="", offset=0, reverse=False, account_filter=[]
 ):
     payload = {"account": account, "count": count}
-    return call("account_history", payload)
+    r = call("account_history", payload)
+    for i, _ in enumerate(r["history"]):
+        for key in ("amount", "local_timestamp", "height"):
+            r["history"][i][key] = int(r["history"][i][key])
+
+    return r
 
 
 def account_info(account, representative=False, weight=False, pending=False):
@@ -47,7 +61,21 @@ def account_info(account, representative=False, weight=False, pending=False):
         "weight": weight,
         "pending": pending,
     }
-    return call("account_info", payload)
+
+    r = call("account_info", payload)
+    for k in (
+        "account_version",
+        "modified_timestamp",
+        "confirmation_height",
+        "block_count",
+        "balance",
+        "pending",
+        "weight",
+    ):
+        if k in r:
+            r[k] = int(r[k])
+
+    return r
 
 
 def account_key(account):
@@ -62,12 +90,20 @@ def account_representative(account):
 
 def account_weight(account):
     payload = {"account": account}
-    return call("account_weight", payload)
+    r = call("account_weight", payload)
+    r["weight"] = int(r["weight"])
+
+    return r
 
 
 def accounts_balances(accounts):
     payload = {"accounts": accounts}
-    return call("accounts_balances", payload)
+    r = call("accounts_balances", payload)
+    for account, balances in r["balances"].items():
+        for key in balances:
+            r["balances"][account][key] = int(r["balances"][account][key])
+
+    return r
 
 
 def accounts_frontiers(accounts):
@@ -75,6 +111,7 @@ def accounts_frontiers(accounts):
     return call("accounts_frontiers", payload)
 
 
+# FIXME: check for errors
 def accounts_pending(
     accounts,
     threshold=0,
@@ -91,16 +128,41 @@ def accounts_pending(
         "sorting": sorting,
         "include_only_confirmed": include_only_confirmed,
     }
-    return call("accounts_pending", payload)
+
+    r = call("accounts_pending", payload)
+    for account, data in r["blocks"].items():
+        if isinstance(data, list):  # list of block hashes, no change needed
+            continue
+        if not data:
+            r["blocks"][account] = []  # convert a "" response to []
+            continue
+        for key, value in data.items():
+            if isinstance(value, str):  # amount
+                r["blocks"][account][key] = int(value)
+            elif isinstance(value, dict):  # dict with "amount" and "source"
+                for key in ("amount",):
+                    if key in value:
+                        r["blocks"][account][value][key] = int(
+                            r["blocks"][account][value][key]
+                        )
+
+    return r
 
 
+# FIXME: check for errors
 def active_difficulty(include_trend=False):
     payload = {"include_trend": include_trend}
-    return call("active_difficulty", payload)
+    r = call("active_difficulty", payload)
+    r["multiplier"] = int(r["multiplier"])
+    r["difficulty_trend"] = [int(v) for v in r["difficulty_trend"]]
+
+    return r
 
 
 def available_supply():
-    return call("available_supply")
+    r = call("available_supply")
+    r["available"] = int(r["available"])
+    return r
 
 
 def block_account(hash):
@@ -110,16 +172,27 @@ def block_account(hash):
 
 def block_confirm(hash):
     payload = {"hash": hash}
-    return call("block_confirm", payload)
+    r = call("block_confirm", payload)
+    r["started"] = int(r["started"])
+
+    return r
 
 
 def block_count(include_cemented=True):
     payload = {"include_cemented": include_cemented}
-    return call("block_count", payload)
+    r = call("block_count", payload)
+    for k, v in r.items():
+        r[k] = int(v)
+
+    return r
 
 
 def block_count_type():
-    return call("block_count_type")
+    r = call("block_count_type")
+    for k, v in r.items():
+        r[k] = int(v)
+
+    return r
 
 
 def block_create(type, balance, key, representative, link, previous, json_block=False):
@@ -132,7 +205,12 @@ def block_create(type, balance, key, representative, link, previous, json_block=
         "previous": previous,
         "json_block": json_block,
     }
-    return call("block_create", payload)
+    r = call("block_create", payload)
+
+    # FIXME:
+    # r["block"]["balance"] = int(r["block"]["balance"])
+
+    return r
 
 
 def block_hash(
@@ -170,7 +248,16 @@ def block_info(hash, json_block=False):
         "json_block": json_block,
         "hash": hash,
     }
-    return call("block_info", payload)
+
+    r = call("block_info", payload)
+    for key in ("amount", "balance", "height", "local_timestamp"):
+        r[key] = int(r[key])
+
+    # FIXME:
+    # r["confirmed"] = bool(r["confirmed"])
+    r["contents"]["balance"] = int(r["contents"]["balance"])
+
+    return r
 
 
 def blocks(hashes, json_block=False):
@@ -178,7 +265,11 @@ def blocks(hashes, json_block=False):
         "json_block": json_block,
         "hashes": hashes,
     }
-    return call("blocks", payload)
+    r = call("blocks", payload)
+    for block, _ in r["blocks"].items():
+        r["blocks"][block]["balance"] = int(r["blocks"][block]["balance"])
+
+    return r
 
 
 def blocks_info(
@@ -197,7 +288,17 @@ def blocks_info(
         "source": source,
         "balance": balance,
     }
-    return call("blocks_info", payload)
+
+    r = call("blocks_info", payload)
+    for block, info in r["blocks"].items():
+        for key in ("amount", "balance", "height", "local_timestamp"):
+            r["blocks"][block][key] = int(r["blocks"][block][key])
+        r["blocks"][block]["contents"]["balance"] = int(r["blocks"][block]["balance"])
+
+    # FIXME: case when json_block is false
+    # + "confirmed" field
+
+    return r
 
 
 def bootstrap(address, port, bypass_frontier_confirmation=False):
@@ -220,6 +321,7 @@ def bootstrap_lazy(hash, force=False):
 
 
 def bootstrap_status():
+    # FIXME: update
     return call("bootstrap_status")
 
 
@@ -243,6 +345,7 @@ def confirmation_height_currently_processing():
 
 
 def confirmation_history(hash=None):
+    # FIXME: update
     payload = {
         **({"hash": hash} if hash else {}),
     }
@@ -250,6 +353,7 @@ def confirmation_history(hash=None):
 
 
 def confirmation_info(root, representatives=False, contents=False, json_block=False):
+    # FIXME: update
     payload = {
         "json_block": json_block,
         "root": root,
@@ -264,24 +368,39 @@ def confirmation_quorum(peer_details=False, peers_stake_required=0):
         "peer_details": peer_details,
         "peers_stake_required": peers_stake_required,
     }
-    return call("confirmation_quorum", payload)
+    r = call("confirmation_quorum", payload)
+    for k, v in r.items():
+        r[k] = int(v)
+
+    return r
 
 
 def database_txn_tracker():
+    # FIXME:
     return call("database_txn_tracker")
 
 
 def delegators(account):
     payload = {"account": account}
-    return call("delegators", payload)
+    r = call("delegators", payload)
+    if r["delegators"] == "":
+        r["delegators"] = {}
+
+    for k, _ in r["delegators"].items():
+        r["delegators"][k] = int(r["delegators"][k])
+
+    return r
 
 
 def delegators_count(account):
     payload = {"account": account}
-    return call("delegators_count", payload)
+    r = call("delegators_count", payload)
+    r["count"] = int(r["count"])
+
+    return r
 
 
-def deteministic_key(seed, index=0):
+def deterministic_key(seed, index=0):
     payload = {"seed": seed, "index": index}
     return call("deterministic_key", payload)
 
@@ -292,11 +411,17 @@ def epoch_upgrade(epoch, key, count=None):
         "key": key,
         **({"count": count} if count else {}),
     }
-    return call("epoch_upgrade", payload)
+    r = call("epoch_upgrade", payload)
+    r["started"] = int(r["started"])
+
+    return r
 
 
 def frontier_count():
-    return call("frontier_count")
+    r = call("frontier_count")
+    r["count"] = int(r["count"])
+
+    return r
 
 
 def frontiers(account, count=-1):
@@ -306,7 +431,13 @@ def frontiers(account, count=-1):
 
 def keepalive(address, port):
     payload = {"address": address, "port": port}
-    return call("keepalive", payload)
+    r = call("keepalive", payload)
+
+    print(r)
+
+    r["started"] = int(r["started"])
+
+    return r
 
 
 def key_create():
@@ -328,6 +459,7 @@ def ledger(
     sorting=False,
     threshold=0,
 ):
+    # FIXME:
     payload = {
         "account": account,
         "count": count,
@@ -338,7 +470,8 @@ def ledger(
         "sorting": sorting,
         "threshold": threshold,
     }
-    return call("ledger", payload)
+    r = call("ledger", payload)
+    return r
 
 
 def node_id():
@@ -346,7 +479,10 @@ def node_id():
 
 
 def node_id_delete():
-    return call("node_id_delete")
+    r = call("node_id_delete")
+    r["deprecated"] = int(r["deprecated"])
+
+    return r
 
 
 # version 21.0+
@@ -355,8 +491,11 @@ def node_id_delete():
 
 
 def peers(peer_details=False):
+    # FIXME:
     payload = {"peer_details": peer_details}
-    return call("peers", payload)
+    r = call("peers", payload)
+
+    return r
 
 
 def pending(
@@ -369,6 +508,7 @@ def pending(
     sorting=False,
     include_only_confirmed=True,
 ):
+    # FIXME:
     payload = {
         "account": account,
         "count": count,
@@ -379,7 +519,9 @@ def pending(
         "sorting": sorting,
         "include_only_confirmed": include_only_confirmed,
     }
-    return call("pending", payload)
+    r = call("pending", payload)
+
+    return r
 
 
 def pending_exists(hash, include_active=False, include_only_confirmed=False):
@@ -388,7 +530,10 @@ def pending_exists(hash, include_active=False, include_only_confirmed=False):
         "include_active": include_active,
         "include_only_confirmed": include_only_confirmed,
     }
-    return call("pending_exists", payload)
+    r = call("pending_exists", payload)
+    r["exists"] = int(r["exists"])
+
+    return r
 
 
 def process(
@@ -427,11 +572,18 @@ def process(
 
 
 def representatives(count=-1, sorting=False):
+    # FIXME:
     payload = {"count": count, "sorting": sorting}
-    return call("representatives", payload)
+    r = call("representatives", payload)
+
+    print(r)
+    raise Exception
+
+    return r
 
 
 def representatives_online(weight=False):
+    # FIXME: weight
     payload = {"weight": weight}
     return call("representatives_online", payload)
 
@@ -459,6 +611,7 @@ def sign(
     account=None,
     json_block=False,
 ):
+    # FIXME:
     payload = {
         "json_block": json_block,
         **({"key": key} if key else {}),
@@ -486,6 +639,7 @@ def sign(
 
 
 def stats(stats_type):
+    # FIXME: depends on state_type
     payload = {"type": stats_type}
     return call("stats", payload)
 
@@ -510,25 +664,47 @@ def successors(hash, count=-1, offset=0, reverse=False):
 
 def validate_account_number(account):
     payload = {"account": account}
-    return call("validate_account_number", payload)
+    r = call("validate_account_number", payload)
+    r["valid"] = int(r["valid"])
+
+    return r
 
 
 def version():
-    return call("version")
+    r = call("version")
+    for key in ("rpc_version", "store_version", "protocol_version"):
+        r[key] = int(r[key])
+
+    return r
 
 
 def unchecked(count=-1, json_block=False):
+    # FIXME: check if correct
     payload = {"count": count, "json_block": json_block}
-    return call("unchecked", payload)
+    r = call("unchecked", payload)
+
+    if r["blocks"] == "":
+        r["blocks"] = {}
+
+    for hash, blocks in r["blocks"].items():
+        for key in blocks:
+            r["blocks"][hash][key] = int(r["blocks"][hash][key])
+
+    return r
 
 
 def unchecked_clear():
-    return call("unchecked_clear")
+    r = call("unchecked_clear")
+    r["success"] = {}
+    return r
 
 
 def unchecked_get(hash, json_block=False):
     payload = {"hash": hash, "json_block": json_block}
-    return call("unchecked_get", payload)
+    r = call("unchecked_get", payload)
+    r["contents"]["balance"] = int(r["contents"]["balance"])
+
+    return r
 
 
 def unchecked_keys(key, count=-1, json_block=False):
@@ -537,20 +713,36 @@ def unchecked_keys(key, count=-1, json_block=False):
         "count": count,
         "json_block": json_block,
     }
-    return call("unchecked_keys", payload)
+    r = call("unchecked_keys", payload)
+    if r["unchecked"] == "":
+        r["unchecked"] = {}
+
+    for i, _ in enumerate(r["unchecked"]):
+        r["unchecked"][i]["contents"]["balance"] = int(
+            r["unchecked"][i]["contents"]["balance"]
+        )
+
+    return r
 
 
 def unopened(account, count=-1, threshold=0):
+    # FIXME: test empty
     payload = {
         "account": account,
         "count": count,
         "threshold": threshold,
     }
-    return call("unopened", payload)
+    r = call("unopened", payload)
+    for account, balance in r["accounts"].items():
+        r["accounts"][account] = int(balance)
+
+    return r
 
 
 def uptime():
-    return call("uptime")
+    r = call("uptime")
+    r["seconds"] = int(r["seconds"])
+    return r
 
 
 def work_cancel(hash):
@@ -573,7 +765,9 @@ def work_generate(
 
 def work_peer_add(address, port):
     payload = {"address": address, "port": port}
-    return call("work_peer_add", payload)
+    r = call("work_peer_add", payload)
+    r["success"] = {}
+    return r
 
 
 def work_peers():
@@ -581,7 +775,9 @@ def work_peers():
 
 
 def work_peers_clear():
-    return call("work_peers_clear")
+    r = call("work_peers_clear")
+    r["success"] = {}
+    return r
 
 
 def work_validate(work, hash, difficulty=None, multiplier=None):
@@ -594,6 +790,7 @@ def work_validate(work, hash, difficulty=None, multiplier=None):
 
 
 def account_create(wallet, index=None, work=True):
+    # FIXME: use Decimals for multiplier
     payload = {
         "wallet": wallet,
         "work": work,
@@ -613,12 +810,18 @@ def account_move(wallet, source, accounts):
         "source": source,
         "accounts": accounts,
     }
-    return call("account_move", payload)
+    r = call("account_move", payload)
+    r["moved"] = int(r["moved"])
+
+    return r
 
 
 def account_remove(wallet, account):
     payload = {"wallet": wallet, "account": account}
-    return call("account_remove", payload)
+    r = call("account_remove", payload)
+    r["removed"] = int(r["removed"])
+
+    return r
 
 
 def account_representative_set(wallet, account, representative, work=None):
@@ -642,17 +845,26 @@ def accounts_create(wallet, count, work=True):
 
 def password_change(wallet, password):
     payload = {"wallet": wallet, "password": password}
-    return call("password_change", payload)
+    r = call("password_change", payload)
+    r["changed"] = int(r["changed"])
+
+    return r
 
 
 def password_enter(wallet, password):
     payload = {"wallet": wallet, "password": password}
-    return call("password_enter", payload)
+    r = call("password_enter", payload)
+    r["valid"] = int(r["valid"])
+
+    return r
 
 
 def password_valid(wallet):
     payload = {"wallet": wallet}
-    return call("password_valid", payload)
+    r = call("password_valid", payload)
+    r["valid"] = int(r["valid"])
+
+    return r
 
 
 def receive(wallet, account, block, work=None):
@@ -666,21 +878,33 @@ def receive(wallet, account, block, work=None):
 
 
 def receive_minimum():
-    return call("receive_minimum")
+    r = call("receive_minimum")
+    r["amount"] = int(r["amount"])
+
+    return r
 
 
 def receive_minimum_set(amount):
     payload = {"amount": amount}
-    return call("receive_minimum_set", payload)
+    r = call("receive_minimum_set", payload)
+    r["success"] = {}
+
+    return r
 
 
 def search_pending(wallet):
     payload = {"wallet": wallet}
-    return call("search_pending", payload)
+    r = call("search_pending", payload)
+    r["started"] = int(r["started"])
+
+    return r
 
 
 def search_pending_all():
-    return call("search_pending_all")
+    r = call("search_pending_all")
+    r["success"] = {}
+
+    return r
 
 
 def send(wallet, source, destination, amount, id=None, work=None):
@@ -702,7 +926,10 @@ def wallet_add(wallet, key, work=False):
 
 def wallet_add_watch(wallet, accounts):
     payload = {"wallet": wallet, "accounts": accounts}
-    return call("wallet_add_watch", payload)
+    r = call("wallet_add_watch", payload)
+    r["success"] = {}
+
+    return r
 
 
 def wallet_balances(wallet, threshold=None):
@@ -710,7 +937,12 @@ def wallet_balances(wallet, threshold=None):
         "wallet": wallet,
         **({"threshold": threshold} if threshold else {}),
     }
-    return call("wallet_balances", payload)
+    r = call("wallet_balances", payload)
+    for account, balances in r["balances"].items():
+        for key in balances:
+            r["balances"][account][key] = int(r["balances"][account][key])
+
+    return r
 
 
 def wallet_change_seed(wallet, seed, count=0):
@@ -719,12 +951,19 @@ def wallet_change_seed(wallet, seed, count=0):
         "seed": seed,
         "count": count,
     }
-    return call("wallet_change_seed", payload)
+
+    r = call("wallet_change_seed", payload)
+    r["success"] = {}
+    r["restored_count"] = int(r["restored_count"])
+    return r
 
 
 def wallet_contains(wallet, account):
     payload = {"wallet": wallet, "account": account}
-    return call("wallet_contains", payload)
+    r = call("wallet_contains", payload)
+    r["exists"] = int(r["exists"])
+
+    return r
 
 
 def wallet_create(seed=None):
@@ -736,10 +975,14 @@ def wallet_create(seed=None):
 
 def wallet_destroy(wallet):
     payload = {"wallet": wallet}
-    return call("wallet_destroy", payload)
+    r = call("wallet_destroy", payload)
+    r["destroyed"] = int(r["destroyed"])
+
+    return r
 
 
 def wallet_export(wallet):
+    # FIXME:
     payload = {"wallet": wallet}
     return call("wallet_export", payload)
 
@@ -750,6 +993,7 @@ def wallet_frontiers(wallet):
 
 
 def wallet_history(wallet, modified_since=0):
+    # FIXME:
     payload = {
         "wallet": wallet,
         "modified_since": modified_since,
@@ -759,12 +1003,17 @@ def wallet_history(wallet, modified_since=0):
 
 def wallet_info(wallet):
     payload = {"wallet": wallet}
-    return call("wallet_info", payload)
+    r = call("wallet_info", payload)
+    for key, value in r.items:
+        r[key] = int(value)
+
+    return r
 
 
 def wallet_ledger(
     wallet, representative=False, weight=False, pending=False, modified_since=0
 ):
+    # FIXME:
     payload = {
         "wallet": wallet,
         "representative": representative,
@@ -777,12 +1026,16 @@ def wallet_ledger(
 
 def wallet_lock(wallet):
     payload = {"wallet": wallet}
-    return call("wallet_lock", payload)
+    r = call("wallet_lock", payload)
+    r["locked"] = int(r["locked"])
+    return r
 
 
 def wallet_locked(wallet):
     payload = {"wallet": wallet}
-    return call("wallet_locked", payload)
+    r = call("wallet_locked", payload)
+    r["locked"] = int(r["locked"])
+    return r
 
 
 def wallet_pending(
@@ -794,6 +1047,7 @@ def wallet_pending(
     min_version=False,
     include_only_confirmed=False,
 ):
+    # FIXME:
     payload = {
         "wallet": wallet,
         "count": count,
@@ -817,7 +1071,10 @@ def wallet_representative_set(wallet, representative, update_existing_accounts=F
         "representative": representative,
         "update_existing_accounts": update_existing_accounts,
     }
-    return call("wallet_representative_set", payload)
+    r = call("wallet_representative_set", payload)
+    r["set"] = int(r["set"])
+
+    return r
 
 
 def wallet_republish(wallet, count=-1):
@@ -837,7 +1094,10 @@ def work_get(wallet, account):
 
 def work_set(wallet, account, work):
     payload = {"wallet": wallet, "account": account, "work": work}
-    return call("work_set", payload)
+    r = call("work_set", payload)
+    r["success"] = {}
+
+    return r
 
 
 def ban_from_raw(amount):
