@@ -1,6 +1,7 @@
 import bananopy.banano as ban
 import json
 import os
+import bananopy.utils as b_utils
 
 
 def unfold_keys(dictionary):
@@ -8,16 +9,14 @@ def unfold_keys(dictionary):
     for k, v in dictionary.items():
         if isinstance(v, dict):
             r += unfold_keys(v)
-            continue
-        if isinstance(v, list):
-            for el in v:
-                r += unfold_keys(el)
-            continue
-        r.append(k)
+        elif isinstance(v, list):
+            r += [unfold_keys(el) for el in v]
+        else:
+            r.append(k)
     return r
 
 
-def load_rpc_tests(folder="public"):
+def load_tests(folder="public"):
     jsons_directory = os.path.join(
         os.path.dirname(os.path.realpath(__file__)), "fixtures", folder
     )
@@ -35,7 +34,40 @@ def load_rpc_tests(folder="public"):
     return result
 
 
+def call_method(action, test):
+    try:
+        method = methods[action]
+    except NotImplementedError:
+        raise Exception("`%s` not yet implemented" % action)
+
+    try:
+        expected = test["expected"]
+        # switch between rpc calls and functions
+        arguments = (
+            test["args"]
+            if test.get("request") is None
+            else {k: v for (k, v) in test["request"].items() if k != "action"} or {}
+        )
+
+    except KeyError:
+        raise Exception(
+            "invalid test for %s: %s" % (action, json.dumps(test, indent=2))
+        )
+
+    result = method(arguments) if test.get("request") is None else method(**arguments)
+    if result != expected:
+        for k, v in {"result": result, "expected": expected}:
+            print(k, json.dumps(v, indent=2, sort_keys=True))
+
+    assert result == expected
+
+
 methods = {
+    # utils
+    "is_hash": b_utils.is_hash,
+    "is_hex": b_utils.is_hex,
+    "fix_json": b_utils.fix_json,
+    # rpc calls
     "account_balance": ban.account_balance,
     "account_block_count": ban.account_block_count,
     "account_get": ban.account_get,
@@ -73,7 +105,7 @@ methods = {
     "database_txn_tracker": ban.database_txn_tracker,
     "delegators": ban.delegators,
     "delegators_count": ban.delegators_count,
-    "deteministic_key": ban.deteministic_key,
+    "deterministic_key": ban.deterministic_key,
     "epoch_upgrade": ban.epoch_upgrade,
     "frontier_count": ban.frontier_count,
     "frontiers": ban.frontiers,

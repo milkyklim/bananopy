@@ -1,48 +1,33 @@
 import pytest
 
-from .utils import load_rpc_tests, methods
-import json
+from .utils import load_tests, call_method
+from bananopy.banano import NodeException
 
-rpc_public_tests = load_rpc_tests("public")
-rpc_private_tests = load_rpc_tests("private")
+rpc_public_tests = load_tests("public")
+rpc_private_tests = load_tests("private")
+util_tests = load_tests("other")
 
 
 @pytest.mark.parametrize(
     "action,test",
-    [
-        *(
-            (action, test)
-            for action, tests in rpc_public_tests.items()
-            for test in tests
-        ),
-        *(
-            (action, test)
-            for action, tests in rpc_private_tests.items()
-            for test in tests
-        ),
-    ],
+    [(action, test) for action, tests in rpc_public_tests.items() for test in tests],
 )
 def test_rpc_methods(action, test):
-    try:
-        method = methods[action]
-    except NotImplementedError:
-        raise Exception("`%s` not yet implemented" % action)
+    call_method(action, test)
 
-    try:
-        expected = test["expected"]
-        arguments = {k: v for (k, v) in test["request"].items() if k != "action"} or {}
 
-    except KeyError:
-        raise Exception(
-            "invalid test for %s: %s" % (action, json.dumps(test, indent=2))
-        )
+@pytest.mark.parametrize(
+    "action,test",
+    [(action, test) for action, tests in rpc_private_tests.items() for test in tests],
+)
+def test_fail_rpc_methods(action, test):
+    with pytest.raises(NodeException):
+        call_method(action, test)
 
-    result = method(**arguments)
 
-    if result != expected:
-        print("result:")
-        print(json.dumps(result, indent=2, sort_keys=True))
-        print("expected:")
-        print(json.dumps(expected, indent=2, sort_keys=True))
-
-    assert result == expected
+@pytest.mark.parametrize(
+    "action,test",
+    [(action, test) for action, tests in util_tests.items() for test in tests],
+)
+def test_utils(action, test):
+    call_method(action, test)
