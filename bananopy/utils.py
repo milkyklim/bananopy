@@ -6,7 +6,7 @@ def is_hex(s):
 
 
 def is_hash(s):
-    return True if len(s) == 64 and is_hex(s) else False
+    return True if (len(s) == 64 or len(s) == 128) and is_hex(s) else False
 
 
 def process_str(v):
