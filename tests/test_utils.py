@@ -1,4 +1,9 @@
 import bananopy.banano as ban
+from bananopy import __version__
+
+
+def test_version():
+    assert __version__ == "0.2.0"
 
 
 def test_ban_from_raw():
