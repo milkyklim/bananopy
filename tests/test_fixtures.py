@@ -1,6 +1,6 @@
 import pytest
 
-from .utils import load_tests, call_method
+from .utils import load_tests, _test_method
 from bananopy.banano import NodeException
 
 rpc_public_tests = load_tests("public")
@@ -13,7 +13,7 @@ util_tests = load_tests("other")
     [(action, test) for action, tests in rpc_public_tests.items() for test in tests],
 )
 def test_rpc_methods(action, test):
-    call_method(action, test)
+    _test_method(action, test)
 
 
 @pytest.mark.parametrize(
@@ -22,7 +22,7 @@ def test_rpc_methods(action, test):
 )
 def test_fail_rpc_methods(action, test):
     with pytest.raises(NodeException):
-        call_method(action, test)
+        _test_method(action, test)
 
 
 @pytest.mark.parametrize(
@@ -30,4 +30,4 @@ def test_fail_rpc_methods(action, test):
     [(action, test) for action, tests in util_tests.items() for test in tests],
 )
 def test_utils(action, test):
-    call_method(action, test)
+    _test_method(action, test)

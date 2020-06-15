@@ -34,7 +34,7 @@ def load_tests(folder="public"):
     return result
 
 
-def call_method(action, test):
+def _test_method(action, test):
     try:
         method = methods[action]
     except NotImplementedError:
@@ -56,7 +56,7 @@ def call_method(action, test):
 
     result = method(arguments) if test.get("request") is None else method(**arguments)
     if result != expected:
-        for k, v in {"result": result, "expected": expected}:
+        for k, v in {"result": result, "expected": expected}.items():
             print(k, json.dumps(v, indent=2, sort_keys=True))
 
     assert result == expected
