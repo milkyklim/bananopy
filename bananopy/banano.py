@@ -3,6 +3,7 @@ from collections import defaultdict
 
 from bananopy.constants import BANANO_HTTP_PROVIDER_URI
 from bananopy.utils import fix_json
+from bananopy.conversion import convert
 
 
 class NodeException(Exception):
@@ -918,17 +919,18 @@ def work_set(wallet, account, work):
     return fix_json(r)
 
 
+# shortcuts
 def ban_from_raw(amount):
-    return amount / 10 ** 29
+    return convert(amount, "raw", "ban")
 
 
 def ban_to_raw(amount):
-    return amount * (10 ** 29)
+    return convert(amount, "ban", "raw")
 
 
 def ban_to_banoshi(amount):
-    return amount * 100
+    return convert(amount, "ban", "banoshi")
 
 
 def ban_from_banoshi(amount):
-    return amount / 100
+    return convert(amount, "banoshi", "ban")
