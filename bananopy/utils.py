@@ -11,10 +11,14 @@ def is_hash(s):
 
 def process_str(v):
     r = v
-    if not is_hash(v) and v.isdigit():
-        r = int(v)
     if v == "":
         r = {}
+    if not is_hash(v):
+        if v.isdecimal():
+            r = float(v)
+        if v.isdigit():
+            r = int(v)
+
     return r
 
 
