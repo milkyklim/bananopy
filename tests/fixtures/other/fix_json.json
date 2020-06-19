@@ -1,12 +1,14 @@
 [
   {
     "args": {
-      "action": "account_move",
-      "wallet": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600",
-      "accounts": [
-        "ban_3as1rsoxrxc51ikw8b1oehenge7bdf9nxb4xriqdhwkztekh6xp4fty5xopz",
-        "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
-      ]
+      "input": {
+        "action": "account_move",
+        "wallet": "D6C6604877C00167354DC680D589C3B826411FB9EC26312D34DCFAD3A77FB600",
+        "accounts": [
+          "ban_3as1rsoxrxc51ikw8b1oehenge7bdf9nxb4xriqdhwkztekh6xp4fty5xopz",
+          "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq"
+        ]
+      }
     },
     "expected": {
       "action": "account_move",
@@ -19,14 +21,16 @@
   },
   {
     "args": {
-      "balances": {
-        "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq": {
-          "balance": "6900000000000000000000000000000",
-          "pending": "114811000000000000000000000000000"
-        },
-        "ban_1burnbabyburndiscoinferno111111111111111111111111111aj49sw3w": {
-          "balance": "0",
-          "pending": "50432310666727713701998759104055400892"
+      "input": {
+        "balances": {
+          "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq": {
+            "balance": "6900000000000000000000000000000",
+            "pending": "114811000000000000000000000000000"
+          },
+          "ban_1burnbabyburndiscoinferno111111111111111111111111111aj49sw3w": {
+            "balance": "0",
+            "pending": "50432310666727713701998759104055400892"
+          }
         }
       }
     },
@@ -45,24 +49,26 @@
   },
   {
     "args": {
-      "block_account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
-      "amount": "6900000000000000000000000000000",
-      "balance": "6900000000000000000000000000000",
-      "height": "1",
-      "local_timestamp": "1590691741",
-      "confirmed": "true",
-      "contents": {
-        "type": "state",
-        "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
-        "previous": "0000000000000000000000000000000000000000000000000000000000000000",
-        "representative": "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr",
+      "input": {
+        "block_account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
+        "amount": "6900000000000000000000000000000",
         "balance": "6900000000000000000000000000000",
-        "link": "BE9212348E60305F447EF05C70E0CE3B25085CF70C527D5D4BA96C9C549D9962",
-        "link_as_account": "ban_3hnk4atawr3idx49xw4wg5iewgs733ghg54khognqcdemjcbu8d48i9w66d3",
-        "signature": "83F3BAF9993E9A8944D4052D3E99992918D43D74BF964BA13716E603D9C7B4EAC1CD3741F232E9B8D96C9858003C3D08C453A779171A607EC4B01143655D3800",
-        "work": "eb1508d683a4915f"
-      },
-      "subtype": "receive"
+        "height": "1",
+        "local_timestamp": "1590691741",
+        "confirmed": "true",
+        "contents": {
+          "type": "state",
+          "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
+          "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+          "representative": "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr",
+          "balance": "6900000000000000000000000000000",
+          "link": "BE9212348E60305F447EF05C70E0CE3B25085CF70C527D5D4BA96C9C549D9962",
+          "link_as_account": "ban_3hnk4atawr3idx49xw4wg5iewgs733ghg54khognqcdemjcbu8d48i9w66d3",
+          "signature": "83F3BAF9993E9A8944D4052D3E99992918D43D74BF964BA13716E603D9C7B4EAC1CD3741F232E9B8D96C9858003C3D08C453A779171A607EC4B01143655D3800",
+          "work": "eb1508d683a4915f"
+        },
+        "subtype": "receive"
+      }
     },
     "expected": {
       "block_account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
@@ -87,25 +93,27 @@
   },
   {
     "args": {
-      "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
-      "history": [
-        {
-          "type": "receive",
-          "account": "ban_3uicdzy8ckcqsi5efyoy16u4y5dqkimawbzuwzj5jnxpjxmxjn9q8yyykkxc",
-          "amount": "6900000000000000000000000000000",
-          "local_timestamp": "1590691741",
-          "height": "1",
-          "hash": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
-        },
-        {
-          "type": "send",
-          "account": "ban_3uicdzy8ckcqsi5efyoy16u4y5dqkimawbzuwzj5jnxpjxmxjn9q8yyykkxc",
-          "amount": "6900000000000000000000000000000",
-          "local_timestamp": "1590698841",
-          "height": "2",
-          "hash": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
-        }
-      ]
+      "input": {
+        "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",
+        "history": [
+          {
+            "type": "receive",
+            "account": "ban_3uicdzy8ckcqsi5efyoy16u4y5dqkimawbzuwzj5jnxpjxmxjn9q8yyykkxc",
+            "amount": "6900000000000000000000000000000",
+            "local_timestamp": "1590691741",
+            "height": "1",
+            "hash": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
+          },
+          {
+            "type": "send",
+            "account": "ban_3uicdzy8ckcqsi5efyoy16u4y5dqkimawbzuwzj5jnxpjxmxjn9q8yyykkxc",
+            "amount": "6900000000000000000000000000000",
+            "local_timestamp": "1590698841",
+            "height": "2",
+            "hash": "9F97F18B2BE5764C85644231E1AF42FF2317FE58C8432FA160BD8396AF2AD9CD"
+          }
+        ]
+      }
     },
     "expected": {
       "account": "ban_19benis4t3ex3orc7acp76jqghi4gk8potks33sie1k48e4w5cfbggeexkyq",

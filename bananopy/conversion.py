@@ -12,7 +12,7 @@ UNITS_TO_RAW = {
 
 def convert(value, from_unit, to_unit):
     if isinstance(value, float):
-        raise ValueError(
+        raise TypeError(
             (
                 "Float values can lead to unexpected precision loss, please use",
                 f"Decimal or string e.g. convert({value}, {from_unit}, {to_unit})",

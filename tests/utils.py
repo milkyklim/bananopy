@@ -54,7 +54,7 @@ def _test_method(action, test):
             "invalid test for %s: %s" % (action, json.dumps(test, indent=2))
         )
 
-    result = method(arguments) if test.get("request") is None else method(**arguments)
+    result = method(**arguments)
     if result != expected:
         for k, v in {"result": result, "expected": expected}.items():
             print(k, json.dumps(v, indent=2, sort_keys=True))
@@ -67,6 +67,10 @@ methods = {
     "is_hash": b_utils.is_hash,
     "is_hex": b_utils.is_hex,
     "fix_json": b_utils.fix_json,
+    "ban_from_raw": ban.ban_from_raw,
+    "ban_to_raw": ban.ban_to_raw,
+    "ban_to_banoshi": ban.ban_to_banoshi,
+    "ban_from_banoshi": ban.ban_from_banoshi,
     # rpc calls
     "account_balance": ban.account_balance,
     "account_block_count": ban.account_block_count,
@@ -177,8 +181,4 @@ methods = {
     "wallet_work_get": ban.wallet_work_get,
     "work_get": ban.work_get,
     "work_set": ban.work_set,
-    "ban_from_raw": ban.ban_from_raw,
-    "ban_to_raw": ban.ban_to_raw,
-    "ban_to_banoshi": ban.ban_to_banoshi,
-    "ban_from_banoshi": ban.ban_from_banoshi,
 }
