@@ -7,20 +7,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v1
+      - name: Check out github repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
 
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
+      - name: Find merge conflict
+        uses: olivernybroe/action-conflict-finder@v1.1
+
+      - name: Check for large files
+        uses: actionsdesk/lfs-warning@v1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filesizelimit: "524288" # 500 KB
+
+      - name: Set up python 3.7
+        uses: actions/setup-python@v2
         with:
           python-version: 3.7
 
-      - name: Install Poetry
-        uses: dschep/install-poetry-action@v1.2
+      - name: Install poetry
+        uses: dschep/install-poetry-action@v1.3
+        with:
+          create_virtualenvs: true
 
-      - name: Cache Poetry virtualenv
+      - name: Cache poetry virtualenv
         uses: actions/cache@v1
         id: cache
         with:
@@ -29,17 +41,19 @@ jobs:
           restore-keys: |
             poetry-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Set Poetry config
+      - name: Set poetry config
         run: |
           poetry config virtualenvs.in-project false
           poetry config virtualenvs.path ~/.virtualenvs
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: poetry install
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - name: Code Quality
-        run: poetry run black . --check
+      - name: Verify code quality
+        run: |
+          poetry run black --config pyproject.toml . --check
+          poetry run flake8 --config .flake8
 
       - name: Test with pytest
         env:
