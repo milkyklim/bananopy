@@ -1,17 +1,31 @@
-# BananoPy
+===============================
+🍌🥧: Banano Python Library
+===============================
 
-BananoPy is an all in one library for communicating with Banano/Nano nodes.
+.. image:: https://img.shields.io/pypi/l/bananopy.svg
+    :target: https://github.com/milkyklim/bananopy/blob/master/LICENSE
+    :alt: License
 
-BananoPy contains nearly every single RPC call on https://docs.nano.org in the form of a simple python function call making it easy for anyone to make the most out of their node.
-Rather than handling lots of JSON formatting, remembering what call accepts which perameters, all parameters are handled in the form of Python parameters and where possible, responses are parsed for you into a variable or object.
+.. image:: https://github.com/milkyklim/bananopy/workflows/CI/badge.svg
+    :target: https://github.com/milkyklim/bananopy/actions
+    :alt: Build Status
 
-Example: `blockinfo = banano.get_block_count()` will return all the current block information in an object.
-To then access the data such as block count it can be called simply as `blockinfo.count`
+.. image:: https://readthedocs.org/projects/bananopy/badge/?version=latest
+    :target: http://bananopy.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
-This library was written with node version 18 in mind. Some functions will work with later node versions however some might require extra parameters.
+.. image:: https://img.shields.io/pypi/pyversions/bananopy.svg
+    :target: https://pypi.python.org/pypi/
+    :alt: Supported Python Versions
 
-Pull requests are welcome as due to the number of functions written (100+), not all have been tested fully.
+.. image:: https://img.shields.io/pypi/v/bananopy.svg
+    :target: https://pypi.python.org/pypi/bananopy
+    :alt: Package Version
 
-For more information on each function, please visit https://docs.nano.org/commands/rpc-protocol/
+.. image:: https://img.shields.io/badge/Banano%20Node-v20.0-yellow
+    :alt: Banano Node Version
 
-**Ref:** Initial version from BananoPy `repo <https://github.com/Kirby1997/BananoPy>`_.
+🍌🥧 is a python wrapper for Banano node communication.
+It takes care of RPC responses (type conversions) and exposes a pythonic API for making RPC calls.
+
+Full list of RPC calls is coming from `docs <https://docs.nano.org/commands/rpc-protocol/>`_.
