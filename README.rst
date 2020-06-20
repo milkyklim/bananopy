@@ -69,17 +69,20 @@ To run the tests:
 
 **Conversion**
 
-``float`` type is not supported in conversion, e.g. ``ban_to_banoshi`` cause it might lead to unexpected precision loss. Use `str`, `int` or `Decimal` instead.
+``float`` type is not supported in conversion, e.g. ``ban_to_banoshi`` cause it might lead to unexpected precision loss.
+Use ``str``, ``int`` or ``Decimal`` types instead.
 
-**Example:**
+**Example**
 
 .. code-block:: python
 
-    import bananopy.banano as ban
+    >>> import bananopy.banano as ban
+    Using https://api-beta.banano.cc as API provider on port 7072
 
-    def main():
-        account = "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr"
-        print(ban.account_balance(account))
+    >>> account = "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr"
+    >>> ban.account_balance(account)
+    {'balance': 1626688000000000000017763568393401, 'pending': 0}
 
-    if __name__ == "__main__":
-        main()
+**Support**
+
+Benis to ``ban_1dsarukqn5y8oqho43praocn97wjs17t8eppzgfb78nzzxmjapkidxrcgsqc``
