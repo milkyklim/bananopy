@@ -13,5 +13,20 @@
     "expected": {
       "error": "RPC control is disabled"
     }
+  },
+  {
+    "request": {
+      "action": "block_create",
+      "json_block": "false",
+      "type": "state",
+      "balance": "1000000000000000000000",
+      "key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "representative": "ban_1ka1ium4pfue3uxtntqsrib8mumxgazsjf58gidh1xeo5te3whsq8z476goo",
+      "link": "19D3D919475DEED4696B5D13018151D1AF88B2BD3BCFF048B45031C1F36D1858",
+      "previous": "F47B23107E5F34B2CE06F562B5C435DF72A533251CB414C51B2B62A8F63A00E4"
+    },
+    "expected": {
+      "error": "RPC control is disabled"
+    }
   }
 ]

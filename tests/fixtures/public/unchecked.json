@@ -1,7 +1,17 @@
 [
   {
     "request": {
-      "action": "unchecked"
+      "action": "unchecked",
+      "json_block": false
+    },
+    "expected": {
+      "blocks": {}
+    }
+  },
+  {
+    "request": {
+      "action": "unchecked",
+      "json_block": false
     },
     "expected": {
       "blocks": {}
