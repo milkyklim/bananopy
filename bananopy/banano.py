@@ -489,44 +489,44 @@ def republish(hash, sources=False, destinations=False):
 
 
 def sign(
-    block_type,
-    previous_block,
-    representative,
-    balance,
-    link,
-    link_as_account,
-    signature,
-    work,
+    block_type=None,
+    previous_block=None,
+    representative=None,
+    balance=None,
+    link=None,
+    link_as_account=None,
+    signature=None,
+    work=None,
+    hash=None,
     key=None,
     wallet=None,
     account=None,
     json_block=False,
 ):
-    payload = {
-        "json_block": json_block,
-        **({"key": key} if key else {}),
-        **({"wallet": wallet} if wallet else {}),
-        **({"account": account} if account else {}),
-        "block": {
-            "type": block_type,
-            "account": account,
-            "previous": previous_block,
-            "representative": representative,
-            "balance": balance,
-            "link": link,
-            "link_as_account": link_as_account,
-            "signature": signature,
-            "work": work,
-        },
-    }
+    # distinguish between hash sign and block sign
+    payload = (
+        {"hash": hash}
+        if hash is not None
+        else {
+            "json_block": json_block,
+            **({"key": key} if key else {}),
+            **({"wallet": wallet} if wallet else {}),
+            **({"account": account} if account else {}),
+            "block": {
+                "type": block_type,
+                "account": account,
+                "previous": previous_block,
+                "representative": representative,
+                "balance": balance,
+                "link": link,
+                "link_as_account": link_as_account,
+                "signature": signature,
+                "work": work,
+            },
+        }
+    )
     r = call("sign", payload)
     return fix_json(r)
-
-
-# TODO: add support
-# def sign_hash(hash):
-#     payload = {"hash": hash}
-#     return call("sign", payload)
 
 
 def stats(stats_type):
