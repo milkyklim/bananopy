@@ -11,6 +11,15 @@ class NodeException(Exception):
 
 
 def call(action, params=None, url=BANANO_HTTP_PROVIDER_URI):
+    """
+    Makes an RPC call to the server and returns the json response
+
+
+    Returns:
+        dictionary with RPC response
+
+    """
+
     params = params or {}
     params["action"] = action
     response = requests.post(url, json=params)
