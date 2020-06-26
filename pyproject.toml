@@ -14,7 +14,7 @@ keywords = [
     "crypto",
     "banano"
 ]
-# documentation = ""
+documentation = "https://milkyklim.github.io/bananopy"
 
 [tool.poetry.dependencies]
 python = "^3.7"

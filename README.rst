@@ -10,8 +10,8 @@
     :target: https://github.com/milkyklim/bananopy/actions
     :alt: Build Status
 
-.. image:: https://readthedocs.org/projects/bananopy/badge/?version=latest
-    :target: http://bananopy.readthedocs.io/en/latest/?badge=latest
+.. image:: https://img.shields.io/github/workflow/status/milkyklim/bananopy/CI?label=docs
+    :target: https://milkyklim.github.io/bananopy
     :alt: Documentation Status
 
 .. image:: https://img.shields.io/pypi/pyversions/bananopy.svg
