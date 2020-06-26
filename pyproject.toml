@@ -24,6 +24,7 @@ requests = "^2.23.0"
 pytest = "^5.2"
 flake8 = "^3.8.1"
 black = "^19.10b0"
+sphinx = "^3.1.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
