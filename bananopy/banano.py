@@ -42,7 +42,16 @@ def account_get(pub_key):
 def account_history(
     account, count, raw=False, head="", offset=0, reverse=False, account_filter=[]
 ):
-    payload = {"account": account, "count": count}
+    payload = {
+        "account": account,
+        "count": count,
+        "raw": raw,
+        **({"head": head} if head != "" else {}),
+        "offset": offset,
+        "reverse": reverse,
+        **({"account_filter": account_filter} if account_filter != [] else {}),
+    }
+
     r = call("account_history", payload)
     r = fix_json(r)
 
