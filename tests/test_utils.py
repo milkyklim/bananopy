@@ -7,7 +7,7 @@ from decimal import Decimal
 
 
 def test_version():
-    assert __version__ == "0.3.1"
+    assert __version__ == "0.3.2"
 
 
 @pytest.mark.parametrize(
