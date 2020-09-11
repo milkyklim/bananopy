@@ -1,7 +1,7 @@
 import requests
 from collections import defaultdict
 
-from bananopy.constants import BANANO_HTTP_PROVIDER_URI
+from bananopy.constants import BANANO_API
 from bananopy.utils import fix_json
 from bananopy.conversion import convert
 
@@ -10,7 +10,7 @@ class NodeException(Exception):
     """ Base class for RPC errors """
 
 
-def call(action, params=None, url=BANANO_HTTP_PROVIDER_URI):
+def call(action, params=None, url=BANANO_API):
     params = params or {}
     params["action"] = action
     response = requests.post(url, json=params)

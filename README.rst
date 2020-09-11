@@ -77,7 +77,7 @@ Use ``str``, ``int`` or ``Decimal`` types instead.
 .. code-block:: python
 
     >>> import bananopy.banano as ban
-    Using https://api-beta.banano.cc as API provider on port 7072
+    Using https://api-beta.banano.cc as API provider on port 443
 
     >>> account = "ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr"
     >>> ban.account_balance(account)
